@@ -4,6 +4,7 @@ project:
 
 website:
   title: "[Burcu]'s Analytics Lab"
+  title: "Burcu's Analytics Lab"
   navbar:
     search: true
     left:
