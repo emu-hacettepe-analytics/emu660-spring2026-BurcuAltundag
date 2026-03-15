@@ -1,9 +1,11 @@
 ---
+system("git config --global user.name \"Burcu Altundag\"")
+system("git config --global user.email \"mailadresin@example.com\"")---
 title: "About Me."
 sidebar: false 
 ---
 
-![](assets/images/vesikalik.jpeg){fig-align="center"}
+![](images/f17b7a39-f8f1-4dc7-98d2-f7d9e1659687.jfif){fig-align="center" width="226"}
 
 # Education
 
@@ -15,15 +17,13 @@ sidebar: false
 
 ## Employements
 
-1.  Firm xxx, position xx, year xxx
+1.  ASELSAN, Team Lead Engineer, 2025-Ongoing
 
-2.  Firm yyy, position yyy, year yyy
+2.  ASELSAN, Lead Engineer, 2022-2025
 
 ## Internships
 
-1.  Firm aaa, position xx, year xxx
-
-2.  Firm bbb, position yyy, year yyy
+1.  ASELSAN, Intern , year 2012
 
 # Projects
 
