@@ -2,8 +2,10 @@
 title: "Welcome to My Analytics Lab"
 ---
 
-Hello!! My name is xxx xxxx.
+Hello! My name is Burcu Altundağ Eroğlu.
 
-This is my personal webpage.
+Welcome to my personal webpage. I am an Industrial Engineer and a master's student at Hacettepe University, with interests in data analytics, optimization, and decision science.
 
-Please stay tuned to follow my works on data analytics, blog posts, and more.
+This website is a place where I share my academic work, projects, and coursework.
+
+Feel free to explore my publications, projects, and assignments. More content will be added as I continue learning and working in the field of data analytics.
