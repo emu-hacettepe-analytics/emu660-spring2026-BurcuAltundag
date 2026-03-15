@@ -1,6 +1,4 @@
 ---
-system("git config --global user.name \"Burcu Altundag\"")
-system("git config --global user.email \"mailadresin@example.com\"")---
 title: "About Me."
 sidebar: false 
 ---
