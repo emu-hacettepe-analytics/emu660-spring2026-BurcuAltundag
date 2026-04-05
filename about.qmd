@@ -39,3 +39,7 @@ Swimming
 Dancing
 
 Tennis
+
+# Links
+
+[Download my CV](Burcu_Altundag_CV.pdf)
