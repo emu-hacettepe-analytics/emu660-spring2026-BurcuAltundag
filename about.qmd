@@ -42,4 +42,4 @@ Tennis
 
 # Links
 
-[Download my CV](BurcuAltundag_CV.pdf)
+[Download my CV (PDF)](CV-BurcuALTUNDAG.pdf)
