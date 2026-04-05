@@ -7,26 +7,26 @@ sidebar: false
 
 # Education
 
--   B.S., Industrial Engineering, Kırıkkale University, Turkey, 2009 - 2013.
+- B.S., Industrial Engineering, Kırıkkale University, Turkey, 2009 - 2013.
 
--   M.S., Industrial Engineering, Hacettepe University, Turkey, 2025 - ongoing.
+- M.S., Industrial Engineering, Hacettepe University, Turkey, 2025 - ongoing.
 
 # Work Experience
 
-## Employements
+## Employments
 
-1.  ASELSAN, Team Lead Engineer, 2025-Ongoing
+1. ASELSAN, Team Lead Engineer, 2025 - Ongoing
 
-2.  ASELSAN, Lead Engineer, 2022-2025
+2. ASELSAN, Lead Engineer, 2022 - 2025
 
 ## Internships
 
-1.  ASELSAN, Intern , year 2012
+1. ASELSAN, Intern, 2012
 
 # Publications
 
-1.  Altundağ, B., Eren, T., Kodanlı, E., Malkoç, S. K., Ünlüsoy, S., Biçer, İ., & Tutuk, K. (2016).\
-    **Operating Room Scheduling and an Example Application.**
+1. Altundağ, B., Eren, T., Kodanlı, E., Malkoç, S. K., Ünlüsoy, S., Biçer, İ., & Tutuk, K. (2016).  
+**Operating Room Scheduling and an Example Application.**
 
 # Competencies
 
@@ -34,12 +34,10 @@ R, Quarto, Git, Python, Gurobi
 
 # Hobbies
 
-Swimming
-
-Dancing
-
-Tennis
+Swimming  
+Dancing  
+Tennis  
 
 # Links
 
-CV-BurcuALTUNDAG.pdf
+[Download my CV (PDF)](CV-BurcuALTUNDAG.pdf)
