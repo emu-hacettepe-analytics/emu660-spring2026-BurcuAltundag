@@ -10,6 +10,16 @@ title: "Assignment 1"
 
 My first assignment has two parts.
 
-## (a)
+## (a) Selected Video: “Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Cem Vardar & Erdi Daşdemir”.
+
+In the talk “Conversations on Data Science and Industrial Engineering” by Cem Vardar and Erdi Daşdemir, data science is presented as an interdisciplinary field that combines statistics, mathematical modeling, programming, and domain knowledge to extract meaningful insights from data and improve decision-making processes. The discussion highlights the distinction between structured and unstructured data and outlines the steps of data-driven decision-making, including problem definition, data collection, analysis, and selecting the most appropriate alternative. It also compares traditional intuition-based approaches with data-driven methods, emphasizing that data science enables more accurate and faster decisions. Furthermore, the differences between machine learning and deep learning are explained, particularly noting that deep learning can automatically extract features from large datasets. Finally, the talk underlines that data science has wide applications in sectors such as energy, retail, and manufacturing, and when integrated with industrial engineering, it enhances system efficiency, flexibility, and optimization.
 
 ## (b)
+
+### 1.Open-Ended Question:
+
+What is the difference between machine learning and deep learning? Explain.
+
+The main difference between machine learning and deep learning lies in **feature extraction and data requirements**. In machine learning, features are typically selected manually by humans, and models can work with smaller datasets. In contrast, deep learning uses neural networks to **automatically learn features from data**, making it more effective for large and complex datasets. However, deep learning requires more data, higher computational power, and longer training time. In summary, machine learning is suitable for simpler problems with limited data, while deep learning performs better in complex problems involving large-scale data.
+
+### 2.Multiple-Choice Question:

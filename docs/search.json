@@ -91,14 +91,14 @@
     "href": "about.html#internships",
     "title": "About Me.",
     "section": "Internships",
-    "text": "Internships\n\nASELSAN, Intern , year 2012"
+    "text": "Internships\n\nASELSAN, Intern, 2012"
   },
   {
     "objectID": "assignments/assignment-1.html",
     "href": "assignments/assignment-1.html",
     "title": "Assignment 1",
     "section": "",
-    "text": "1 + 1\n\n[1] 2\n\n\nMy first assignment has two parts.",
+    "text": "1 + 1\n\n[1] 2\n\n\nMy first assignment has two parts.\n\n\nIn the talk “Conversations on Data Science and Industrial Engineering” by Cem Vardar and Erdi Daşdemir, data science is presented as an interdisciplinary field that combines statistics, mathematical modeling, programming, and domain knowledge to extract meaningful insights from data and improve decision-making processes. The discussion highlights the distinction between structured and unstructured data and outlines the steps of data-driven decision-making, including problem definition, data collection, analysis, and selecting the most appropriate alternative. It also compares traditional intuition-based approaches with data-driven methods, emphasizing that data science enables more accurate and faster decisions. Furthermore, the differences between machine learning and deep learning are explained, particularly noting that deep learning can automatically extract features from large datasets. Finally, the talk underlines that data science has wide applications in sectors such as energy, retail, and manufacturing, and when integrated with industrial engineering, it enhances system efficiency, flexibility, and optimization.\n\n\n\n\n\nWhat is the difference between machine learning and deep learning? Explain.\nThe main difference between machine learning and deep learning lies in feature extraction and data requirements. In machine learning, features are typically selected manually by humans, and models can work with smaller datasets. In contrast, deep learning uses neural networks to automatically learn features from data, making it more effective for large and complex datasets. However, deep learning requires more data, higher computational power, and longer training time. In summary, machine learning is suitable for simpler problems with limited data, while deep learning performs better in complex problems involving large-scale data.",
     "crumbs": [
       "Assignment 1"
     ]
@@ -119,5 +119,32 @@
     "title": "My Blog",
     "section": "",
     "text": "This page is under construction.\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "about.html#employments",
+    "href": "about.html#employments",
+    "title": "About Me.",
+    "section": "Employments",
+    "text": "Employments\n\nASELSAN, Team Lead Engineer, 2025 - Ongoing\nASELSAN, Lead Engineer, 2022 - 2025"
+  },
+  {
+    "objectID": "assignments/assignment-1.html#a-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir.",
+    "href": "assignments/assignment-1.html#a-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir.",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "In the talk “Conversations on Data Science and Industrial Engineering” by Cem Vardar and Erdi Daşdemir, data science is presented as an interdisciplinary field that combines statistics, mathematical modeling, programming, and domain knowledge to extract meaningful insights from data and improve decision-making processes. The discussion highlights the distinction between structured and unstructured data and outlines the steps of data-driven decision-making, including problem definition, data collection, analysis, and selecting the most appropriate alternative. It also compares traditional intuition-based approaches with data-driven methods, emphasizing that data science enables more accurate and faster decisions. Furthermore, the differences between machine learning and deep learning are explained, particularly noting that deep learning can automatically extract features from large datasets. Finally, the talk underlines that data science has wide applications in sectors such as energy, retail, and manufacturing, and when integrated with industrial engineering, it enhances system efficiency, flexibility, and optimization.",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#b",
+    "href": "assignments/assignment-1.html#b",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "What is the difference between machine learning and deep learning? Explain.\nThe main difference between machine learning and deep learning lies in feature extraction and data requirements. In machine learning, features are typically selected manually by humans, and models can work with smaller datasets. In contrast, deep learning uses neural networks to automatically learn features from data, making it more effective for large and complex datasets. However, deep learning requires more data, higher computational power, and longer training time. In summary, machine learning is suitable for simpler problems with limited data, while deep learning performs better in complex problems involving large-scale data.",
+    "crumbs": [
+      "Assignment 1"
+    ]
   }
 ]
