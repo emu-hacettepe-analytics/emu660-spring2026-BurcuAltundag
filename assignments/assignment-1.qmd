@@ -33,7 +33,7 @@ B) In deep learning, feature extraction is done by humans.\
 D) Deep learning does not require computational power and is faster.\
 E) Machine learning works only with unstructured data.
 
-# c
+## (c)
 
 #\| echo: true #\| message: false #\| warning: false
 
@@ -65,7 +65,7 @@ apply_results \<- apply(mtcars, 2, compute_stats) print(apply_results)
 
 ################################################# 
 
-# d) 
+## (d) 
 
 #### polls_us_election_2016 data set tasks
 
