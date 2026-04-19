@@ -362,6 +362,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#multiple-choice-question" id="toc-multiple-choice-question" class="nav-link" data-scroll-target="#multiple-choice-question">2.Multiple-Choice Question:</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">c</a></li>
+  <li><a href="#d" id="toc-d" class="nav-link" data-scroll-target="#d">d)</a></li>
   </ul>
 </nav>
 </nav>
@@ -418,9 +420,105 @@ B) In deep learning, feature extraction is done by humans.<br>
 <strong>C) In machine learning, features are generally defined by humans, whereas in deep learning, the model automatically learns the features.</strong><br>
 D) Deep learning does not require computational power and is faster.<br>
 E) Machine learning works only with unstructured data.</p>
-
-
 </section>
+</section>
+</section>
+<section id="c" class="level1">
+<h1>c</h1>
+<p>#| echo: true #| message: false #| warning: false</p>
+<p>library(dslabs)</p>
+<p>data(“mtcars”)</p>
+<section id="özel-özet-fonksiyonu" class="level4">
+<h4 class="anchored" data-anchor-id="özel-özet-fonksiyonu">Özel özet fonksiyonu</h4>
+<p>compute_stats &lt;- function(x) { list( mean = mean(x), median = median(x), variance = var(x), IQR = IQR(x), minimum = min(x), maximum = max(x) ) }</p>
+</section>
+<section id="for-loop-ile-uygulama" class="level4">
+<h4 class="anchored" data-anchor-id="for-loop-ile-uygulama">For loop ile uygulama</h4>
+<p>cat(“FOR LOOP RESULTS”) cat(“=================”)</p>
+<p>for (col_name in names(mtcars)) { cat(“Column:”, col_name, “”) print(compute_stats(mtcars[[col_name]])) cat(“—————————–”) }</p>
+</section>
+<section id="sapply-ile-uygulama" class="level4">
+<h4 class="anchored" data-anchor-id="sapply-ile-uygulama">sapply ile uygulama</h4>
+<p>cat(“RESULTS”) cat(“=============”)</p>
+<p>sapply_results &lt;- sapply(mtcars, compute_stats, simplify = FALSE) print(sapply_results)</p>
+</section>
+<section id="apply-ile-uygulama" class="level4">
+<h4 class="anchored" data-anchor-id="apply-ile-uygulama">apply ile uygulama</h4>
+<p>cat(“RESULTS”) cat(“=============”)</p>
+<p>apply_results &lt;- apply(mtcars, 2, compute_stats) print(apply_results)</p>
+<section id="section-1" class="level49">
+<p class="heading"></p>
+</section>
+</section>
+</section>
+<section id="d" class="level1">
+<h1>d)</h1>
+<section id="polls_us_election_2016-data-set-tasks" class="level4">
+<h4 class="anchored" data-anchor-id="polls_us_election_2016-data-set-tasks">polls_us_election_2016 data set tasks</h4>
+</section>
+<section id="veri-setini-yükle" class="level4">
+<h4 class="anchored" data-anchor-id="veri-setini-yükle">Veri setini yükle</h4>
+<p>data(“polls_us_election_2016”)</p>
+</section>
+<section id="veri-setini-yeni-bir-nesneye-atama" class="level4">
+<h4 class="anchored" data-anchor-id="veri-setini-yeni-bir-nesneye-atama">Veri setini yeni bir nesneye atama</h4>
+<p>data_original &lt;- polls_us_election_2016</p>
+<p>my_first &lt;- “Burcu”</p>
+<p>my_birth_year &lt;- 1990</p>
+</section>
+<section id="k-değerini-hesaplama" class="level4">
+<h4 class="anchored" data-anchor-id="k-değerini-hesaplama">k değerini hesaplama</h4>
+<p>k &lt;- (nchar(my_first) + my_birth_year) %% 15 + 8</p>
+<p>cat(“VARIABLES”) cat(“============”) cat(“my_first =”, my_first, “”) cat(“my_birth_year =”, my_birth_year, “”) cat(“k =”, k, “”)</p>
+</section>
+<section id="orijinal-veri-setinden-k-satır-göster" class="level4">
+<h4 class="anchored" data-anchor-id="orijinal-veri-setinden-k-satır-göster">Orijinal veri setinden k satır göster</h4>
+<p>cat(“ORIGINAL DATASET: SELECTED ROWS”) cat(“===============================”)</p>
+<p>if (k %% 2 == 0) { selected_original &lt;- head(data_original, k) cat(“k is even, so the first”, k, “rows are displayed.”) } else { selected_original &lt;- tail(data_original, k) cat(“k is odd, so the last”, k, “rows are displayed.”) }</p>
+<p>print(selected_original)</p>
+</section>
+<section id="toplam-na-sayısı" class="level4">
+<h4 class="anchored" data-anchor-id="toplam-na-sayısı">Toplam NA sayısı</h4>
+<p>total_na_original &lt;- sum(is.na(data_original))</p>
+<p>cat(“NUMBER OF NA VALUES IN ORIGINAL DATASET”) cat(“============================================”) print(total_na_original)</p>
+</section>
+<section id="sütun-başına-na-sayısı" class="level4">
+<h4 class="anchored" data-anchor-id="sütun-başına-na-sayısı">Sütun başına NA sayısı</h4>
+</section>
+<section id="büyükten-küçüğe-sırala-ilk-8-sütun" class="level4">
+<h4 class="anchored" data-anchor-id="büyükten-küçüğe-sırala-ilk-8-sütun">Büyükten küçüğe sırala, ilk 8 sütun</h4>
+<p>na_per_column &lt;- colSums(is.na(data_original)) na_per_column_sorted &lt;- sort(na_per_column, decreasing = TRUE) top_8_na_columns &lt;- head(na_per_column_sorted, 8)</p>
+<p>cat(“ COLUMNS WITH MOST NA VALUES”) cat(“=================================”) print(top_8_na_columns)</p>
+</section>
+<section id="na-değerlerini-değiştirerek-yeni-veri-seti-oluştur" class="level4">
+<h4 class="anchored" data-anchor-id="na-değerlerini-değiştirerek-yeni-veri-seti-oluştur">NA değerlerini değiştirerek yeni veri seti oluştur</h4>
+<p>new_data &lt;- data_original</p>
+<p>for (col_name in names(new_data)) {</p>
+<p>if (is.numeric(new_data[[col_name]])) { new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- my_birth_year + k } else if (is.character(new_data[[col_name]]) || is.factor(new_data[[col_name]])) {</p>
+<pre><code># Faktor ise önce character'a çevir
+if (is.factor(new_data[[col_name]])) {
+  new_data[[col_name]] &lt;- as.character(new_data[[col_name]])
+}
+
+new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- paste0(my_first, "_", k)</code></pre>
+<p>} }</p>
+</section>
+<section id="yeni-veri-setinden-k-satır-göster" class="level4">
+<h4 class="anchored" data-anchor-id="yeni-veri-setinden-k-satır-göster">Yeni veri setinden k satır göster</h4>
+<p>cat(“DATASET: SELECTED ROWS”) cat(“=========================”)</p>
+<p>if (k %% 2 == 0) { selected_new &lt;- head(new_data, k) cat(“k is even, so the first”, k, “rows of the new data frame are displayed.”) } else { selected_new &lt;- tail(new_data, k) cat(“k is odd, so the last”, k, “rows of the new data frame are displayed.”) }</p>
+<p>print(selected_new)</p>
+</section>
+<section id="yeni-veri-setinde-kalan-na-sayısı" class="level4">
+<h4 class="anchored" data-anchor-id="yeni-veri-setinde-kalan-na-sayısı">Yeni veri setinde kalan NA sayısı</h4>
+<p>total_na_new &lt;- sum(is.na(new_data))</p>
+<p>cat(“NUMBER OF NA VALUES IN NEW DATASET”) cat(“=======================================”) print(total_na_new)</p>
+</section>
+<section id="anynanew_data" class="level4">
+<h4 class="anchored" data-anchor-id="anynanew_data">anyNA(new_data)</h4>
+<p>cat(“anyNA(new_data)”) cat(“====================”) print(anyNA(new_data))</p>
+
+
 </section>
 </section>
 
