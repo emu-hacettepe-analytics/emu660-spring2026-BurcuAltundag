@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -79,9 +44,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9ee8342cdd1c42117ce06b6284d41c91.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b09ffb0c710b10090e35f4f5c8599541.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-5b22ffe13dd2aa798062e3956142f8dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-9ee8342cdd1c42117ce06b6284d41c91.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b09ffb0c710b10090e35f4f5c8599541.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -385,9 +350,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#assignment-1" id="toc-assignment-1" class="nav-link active" data-scroll-target="#assignment-1">Assignment 1</a>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a>
   <ul class="collapse">
-  <li><a href="#a-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir." id="toc-a-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir." class="nav-link" data-scroll-target="#a-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir.">(a) Selected Video: “Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Cem Vardar &amp; Erdi Daşdemir”.</a></li>
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">(a)</a>
+  <ul class="collapse">
+  <li><a href="#selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir." id="toc-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir." class="nav-link" data-scroll-target="#selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir.">Selected Video: “Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Cem Vardar &amp; Erdi Daşdemir”.</a></li>
+  </ul></li>
   <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">(b)</a>
   <ul class="collapse">
   <li><a href="#open-ended-question" id="toc-open-ended-question" class="nav-link" data-scroll-target="#open-ended-question">1.Open-Ended Question:</a></li>
@@ -424,18 +392,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="assignment-1" class="level1">
-<h1>Assignment 1</h1>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
+<section id="section" class="level1">
+<h1></h1>
+<pre><code></code></pre>
 <p>My first assignment has two parts.</p>
-<section id="a-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir." class="level2">
-<h2 class="anchored" data-anchor-id="a-selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir.">(a) Selected Video: “Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Cem Vardar &amp; Erdi Daşdemir”.</h2>
+<section id="a" class="level2">
+<h2 class="anchored" data-anchor-id="a">(a)</h2>
+<section id="selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir." class="level3">
+<h3 class="anchored" data-anchor-id="selected-video-veri-bilimi-ve-endüstri-mühendisliği-üzerine-sohbetler---cem-vardar-erdi-daşdemir.">Selected Video: “Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Cem Vardar &amp; Erdi Daşdemir”.</h3>
 <p>In the talk “Conversations on Data Science and Industrial Engineering” by Cem Vardar and Erdi Daşdemir, data science is presented as an interdisciplinary field that combines statistics, mathematical modeling, programming, and domain knowledge to extract meaningful insights from data and improve decision-making processes. The discussion highlights the distinction between structured and unstructured data and outlines the steps of data-driven decision-making, including problem definition, data collection, analysis, and selecting the most appropriate alternative. It also compares traditional intuition-based approaches with data-driven methods, emphasizing that data science enables more accurate and faster decisions. Furthermore, the differences between machine learning and deep learning are explained, particularly noting that deep learning can automatically extract features from large datasets. Finally, the talk underlines that data science has wide applications in sectors such as energy, retail, and manufacturing, and when integrated with industrial engineering, it enhances system efficiency, flexibility, and optimization.</p>
+</section>
 </section>
 <section id="b" class="level2">
 <h2 class="anchored" data-anchor-id="b">(b)</h2>
@@ -446,6 +412,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="multiple-choice-question" class="level3">
 <h3 class="anchored" data-anchor-id="multiple-choice-question">2.Multiple-Choice Question:</h3>
+<p>Which of the following correctly describes the difference between <strong>deep learning and machine learning</strong>?</p>
+<p>A) Machine learning works with big data, while deep learning works with small data.<br>
+B) In deep learning, feature extraction is done by humans.<br>
+<strong>C) In machine learning, features are generally defined by humans, whereas in deep learning, the model automatically learns the features.</strong><br>
+D) Deep learning does not require computational power and is faster.<br>
+E) Machine learning works only with unstructured data.</p>
 
 
 </section>
