@@ -40,15 +40,6 @@ title: "Assignment 1"
 format: html
 ---
 
-## TEST
-
-```{r}
-x <- 5
-x
-```
-
-## (c)
-
 ```{r}
 data("mtcars")
 
@@ -82,7 +73,7 @@ data("polls_us_election_2016")
 data_original <- polls_us_election_2016
 
 my_first <- "Burcu"
-my_birth_year <- 1999
+my_birth_year <- 1990
 
 k <- (nchar(my_first) + my_birth_year) %% 15 + 8
 k
