@@ -35,113 +35,88 @@ E) Machine learning works only with unstructured data.
 
 ## (c)
 
-#\| echo: true #\| message: false #\| warning: false
+#  Statistical Summaries with Custom Functions
 
-library(dslabs)
-
-data("mtcars")
-
-#### Özel özet fonksiyonu
-
-compute_stats \<- function(x) { list( mean = mean(x), median = median(x), variance = var(x), IQR = IQR(x), minimum = min(x), maximum = max(x) ) }
-
-#### For loop ile uygulama
-
-cat("FOR LOOP RESULTS\n") cat("=================\n\n")
-
-for (col_name in names(mtcars)) { cat("Column:", col_name, "\n") print(compute_stats(mtcars\[\[col_name\]\])) cat("\n-----------------------------\n\n") }
-
-#### sapply ile uygulama
-
-cat("\n\nSAPPY RESULTS\n") cat("=============\n\n")
-
-sapply_results \<- sapply(mtcars, compute_stats, simplify = FALSE) print(sapply_results)
-
-#### apply ile uygulama
-
-cat("\n\nAPPLY RESULTS\n") cat("=============\n\n")
-
-apply_results \<- apply(mtcars, 2, compute_stats) print(apply_results)
-
-################################################# 
-
-## (d) 
-
-#### polls_us_election_2016 data set tasks
-
-#### Veri setini yükle
-
-data("polls_us_election_2016")
-
-#### Veri setini yeni bir nesneye atama
-
-data_original \<- polls_us_election_2016
-
-my_first \<- "Burcu"
-
-my_birth_year \<- 1990
-
-#### k değerini hesaplama
-
-k \<- (nchar(my_first) + my_birth_year) %% 15 + 8
-
-cat("\n\nMY VARIABLES\n") cat("============\n") cat("my_first =", my_first, "\n") cat("my_birth_year =", my_birth_year, "\n") cat("k =", k, "\n\n")
-
-#### Orijinal veri setinden k satır göster
-
-cat("ORIGINAL DATASET: SELECTED ROWS\n") cat("===============================\n\n")
-
-if (k %% 2 == 0) { selected_original \<- head(data_original, k) cat("k is even, so the first", k, "rows are displayed.\n\n") } else { selected_original \<- tail(data_original, k) cat("k is odd, so the last", k, "rows are displayed.\n\n") }
-
-print(selected_original)
-
-#### Toplam NA sayısı
-
-total_na_original \<- sum(is.na(data_original))
-
-cat("\n\nTOTAL NUMBER OF NA VALUES IN ORIGINAL DATASET\n") cat("============================================\n") print(total_na_original)
-
-#### Sütun başına NA sayısı
-
-#### Büyükten küçüğe sırala, ilk 8 sütun
-
-na_per_column \<- colSums(is.na(data_original)) na_per_column_sorted \<- sort(na_per_column, decreasing = TRUE) top_8_na_columns \<- head(na_per_column_sorted, 8)
-
-cat("\n\nTOP 8 COLUMNS WITH MOST NA VALUES\n") cat("=================================\n") print(top_8_na_columns)
-
-#### NA değerlerini değiştirerek yeni veri seti oluştur
-
-new_data \<- data_original
-
-for (col_name in names(new_data)) {
-
-if (is.numeric(new_data\[\[col_name\]\])) { new_data\[\[col_name\]\]\[is.na(new_data\[\[col_name\]\])\] \<- my_birth_year + k } else if (is.character(new_data\[\[col_name\]\]) \|\| is.factor(new_data\[\[col_name\]\])) {
+We use the built-in `mtcars` dataset in base R.
 
 ```         
-# Faktor ise önce character'a çevir
-if (is.factor(new_data[[col_name]])) {
-  new_data[[col_name]] <- as.character(new_data[[col_name]])
-}
-
-new_data[[col_name]][is.na(new_data[[col_name]])] <- paste0(my_first, "_", k)
+#| echo: true #| message: false #| warning: false  data("mtcars") 
 ```
 
-} }
+## Custom summary function
 
-#### Yeni veri setinden k satır göster
+```         
+compute_stats <- function(x) {   list(     mean = mean(x),     median = median(x),     variance = var(x),     IQR = IQR(x),     minimum = min(x),     maximum = max(x)   ) }  compute_stats(mtcars$mpg) 
+```
 
-cat("\n\nNEW DATASET: SELECTED ROWS\n") cat("=========================\n\n")
+## Applying the function with a for loop
 
-if (k %% 2 == 0) { selected_new \<- head(new_data, k) cat("k is even, so the first", k, "rows of the new data frame are displayed.\n\n") } else { selected_new \<- tail(new_data, k) cat("k is odd, so the last", k, "rows of the new data frame are displayed.\n\n") }
+```         
+for_results <- list()  for (col_name in names(mtcars)) {   for_results[[col_name]] <- compute_stats(mtcars[[col_name]]) }  for_results 
+```
 
-print(selected_new)
+## Applying the function with sapply
 
-#### Yeni veri setinde kalan NA sayısı
+```         
+sapply_results <- sapply(mtcars, compute_stats, simplify = FALSE) sapply_results 
+```
 
-total_na_new \<- sum(is.na(new_data))
+## Applying the function with apply
 
-cat("\n\nTOTAL NUMBER OF NA VALUES IN NEW DATASET\n") cat("=======================================\n") print(total_na_new)
+```         
+apply_results <- apply(mtcars, 2, compute_stats) apply_results 
+```
 
-#### anyNA(new_data)
+# Part (d): Data Manipulation Tasks
 
-cat("\n\nCHECK anyNA(new_data)\n") cat("====================\n") print(anyNA(new_data))
+```         
+library(dslabs) data("polls_us_election_2016")  data_original <- polls_us_election_2016 
+```
+
+## Define personal variables
+
+```         
+my_first <- "Burcu" my_birth_year <- 1999  k <- (nchar(my_first) + my_birth_year) %% 15 + 8  my_first my_birth_year k 
+```
+
+## Display k rows from the original dataset
+
+```         
+if (k %% 2 == 0) {   selected_original <- head(data_original, k) } else {   selected_original <- tail(data_original, k) }  selected_original 
+```
+
+## Total number of NA values in the original dataset
+
+```         
+total_na_original <- sum(is.na(data_original)) total_na_original 
+```
+
+## Number of NA values per column, sorted from largest to smallest (top 8)
+
+```         
+na_per_column <- colSums(is.na(data_original)) na_sorted <- sort(na_per_column, decreasing = TRUE) top_8_na <- head(na_sorted, 8)  top_8_na 
+```
+
+## Replace all NA values and store as a new object
+
+```         
+new_data <- data_original  for (col_name in names(new_data)) {   if (is.numeric(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] <- my_birth_year + k   } else if (is.character(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] <- paste0(my_first, "_", k)   } else if (is.factor(new_data[[col_name]])) {     new_data[[col_name]] <- as.character(new_data[[col_name]])     new_data[[col_name]][is.na(new_data[[col_name]])] <- paste0(my_first, "_", k)   } } 
+```
+
+## Display k rows from the new dataset using the same rule
+
+```         
+if (k %% 2 == 0) {   selected_new <- head(new_data, k) } else {   selected_new <- tail(new_data, k) }  selected_new 
+```
+
+## Remaining total number of NA values in the new dataset
+
+```         
+sum(is.na(new_data)) 
+```
+
+## Check with anyNA
+
+```         
+anyNA(new_data) 
+```
