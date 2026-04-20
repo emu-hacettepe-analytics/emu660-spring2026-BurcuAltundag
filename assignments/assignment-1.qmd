@@ -35,88 +35,34 @@ E) Machine learning works only with unstructured data.
 
 ## (c)
 
-#  Statistical Summaries with Custom Functions
+# Statistical Summaries with Custom Functions
 
 We use the built-in `mtcars` dataset in base R.
 
 ```         
-#| echo: true #| message: false #| warning: false  data("mtcars") 
+#| echo: true #| message: false #| warning: false  data("mtcars")
 ```
 
 ## Custom summary function
 
 ```         
-compute_stats <- function(x) {   list(     mean = mean(x),     median = median(x),     variance = var(x),     IQR = IQR(x),     minimum = min(x),     maximum = max(x)   ) }  compute_stats(mtcars$mpg) 
+compute_stats <- function(x) {   list(     mean = mean(x),     median = median(x),     variance = var(x),     IQR = IQR(x),     minimum = min(x),     maximum = max(x)   ) }  compute_stats(mtcars$mpg)
 ```
 
 ## Applying the function with a for loop
 
 ```         
-for_results <- list()  for (col_name in names(mtcars)) {   for_results[[col_name]] <- compute_stats(mtcars[[col_name]]) }  for_results 
+for_results <- list()  for (col_name in names(mtcars)) {   for_results[[col_name]] <- compute_stats(mtcars[[col_name]]) }  for_results
 ```
 
 ## Applying the function with sapply
 
 ```         
-sapply_results <- sapply(mtcars, compute_stats, simplify = FALSE) sapply_results 
+sapply_results <- sapply(mtcars, compute_stats, simplify = FALSE) sapply_results
 ```
 
 ## Applying the function with apply
 
 ```         
-apply_results <- apply(mtcars, 2, compute_stats) apply_results 
-```
-
-# Part (d): Data Manipulation Tasks
-
-```         
-library(dslabs) data("polls_us_election_2016")  data_original <- polls_us_election_2016 
-```
-
-## Define personal variables
-
-```         
-my_first <- "Burcu" my_birth_year <- 1999  k <- (nchar(my_first) + my_birth_year) %% 15 + 8  my_first my_birth_year k 
-```
-
-## Display k rows from the original dataset
-
-```         
-if (k %% 2 == 0) {   selected_original <- head(data_original, k) } else {   selected_original <- tail(data_original, k) }  selected_original 
-```
-
-## Total number of NA values in the original dataset
-
-```         
-total_na_original <- sum(is.na(data_original)) total_na_original 
-```
-
-## Number of NA values per column, sorted from largest to smallest (top 8)
-
-```         
-na_per_column <- colSums(is.na(data_original)) na_sorted <- sort(na_per_column, decreasing = TRUE) top_8_na <- head(na_sorted, 8)  top_8_na 
-```
-
-## Replace all NA values and store as a new object
-
-```         
-new_data <- data_original  for (col_name in names(new_data)) {   if (is.numeric(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] <- my_birth_year + k   } else if (is.character(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] <- paste0(my_first, "_", k)   } else if (is.factor(new_data[[col_name]])) {     new_data[[col_name]] <- as.character(new_data[[col_name]])     new_data[[col_name]][is.na(new_data[[col_name]])] <- paste0(my_first, "_", k)   } } 
-```
-
-## Display k rows from the new dataset using the same rule
-
-```         
-if (k %% 2 == 0) {   selected_new <- head(new_data, k) } else {   selected_new <- tail(new_data, k) }  selected_new 
-```
-
-## Remaining total number of NA values in the new dataset
-
-```         
-sum(is.na(new_data)) 
-```
-
-## Check with anyNA
-
-```         
-anyNA(new_data) 
+apply_results <- apply(mtcars, 2, compute_stats) apply_results
 ```

@@ -370,17 +370,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#applying-the-function-with-sapply" id="toc-applying-the-function-with-sapply" class="nav-link" data-scroll-target="#applying-the-function-with-sapply">Applying the function with sapply</a></li>
   <li><a href="#applying-the-function-with-apply" id="toc-applying-the-function-with-apply" class="nav-link" data-scroll-target="#applying-the-function-with-apply">Applying the function with apply</a></li>
   </ul></li>
-  <li><a href="#part-d-data-manipulation-tasks" id="toc-part-d-data-manipulation-tasks" class="nav-link" data-scroll-target="#part-d-data-manipulation-tasks">Part (d): Data Manipulation Tasks</a>
-  <ul class="collapse">
-  <li><a href="#define-personal-variables" id="toc-define-personal-variables" class="nav-link" data-scroll-target="#define-personal-variables">Define personal variables</a></li>
-  <li><a href="#display-k-rows-from-the-original-dataset" id="toc-display-k-rows-from-the-original-dataset" class="nav-link" data-scroll-target="#display-k-rows-from-the-original-dataset">Display k rows from the original dataset</a></li>
-  <li><a href="#total-number-of-na-values-in-the-original-dataset" id="toc-total-number-of-na-values-in-the-original-dataset" class="nav-link" data-scroll-target="#total-number-of-na-values-in-the-original-dataset">Total number of NA values in the original dataset</a></li>
-  <li><a href="#number-of-na-values-per-column-sorted-from-largest-to-smallest-top-8" id="toc-number-of-na-values-per-column-sorted-from-largest-to-smallest-top-8" class="nav-link" data-scroll-target="#number-of-na-values-per-column-sorted-from-largest-to-smallest-top-8">Number of NA values per column, sorted from largest to smallest (top 8)</a></li>
-  <li><a href="#replace-all-na-values-and-store-as-a-new-object" id="toc-replace-all-na-values-and-store-as-a-new-object" class="nav-link" data-scroll-target="#replace-all-na-values-and-store-as-a-new-object">Replace all NA values and store as a new object</a></li>
-  <li><a href="#display-k-rows-from-the-new-dataset-using-the-same-rule" id="toc-display-k-rows-from-the-new-dataset-using-the-same-rule" class="nav-link" data-scroll-target="#display-k-rows-from-the-new-dataset-using-the-same-rule">Display k rows from the new dataset using the same rule</a></li>
-  <li><a href="#remaining-total-number-of-na-values-in-the-new-dataset" id="toc-remaining-total-number-of-na-values-in-the-new-dataset" class="nav-link" data-scroll-target="#remaining-total-number-of-na-values-in-the-new-dataset">Remaining total number of NA values in the new dataset</a></li>
-  <li><a href="#check-with-anyna" id="toc-check-with-anyna" class="nav-link" data-scroll-target="#check-with-anyna">Check with anyNA</a></li>
-  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -446,58 +435,22 @@ E) Machine learning works only with unstructured data.</p>
 <section id="statistical-summaries-with-custom-functions" class="level1">
 <h1>Statistical Summaries with Custom Functions</h1>
 <p>We use the built-in <code>mtcars</code> dataset in base R.</p>
-<pre><code>#| echo: true #| message: false #| warning: false  data("mtcars") </code></pre>
+<pre><code>#| echo: true #| message: false #| warning: false  data("mtcars")</code></pre>
 <section id="custom-summary-function" class="level2">
 <h2 class="anchored" data-anchor-id="custom-summary-function">Custom summary function</h2>
-<pre><code>compute_stats &lt;- function(x) {   list(     mean = mean(x),     median = median(x),     variance = var(x),     IQR = IQR(x),     minimum = min(x),     maximum = max(x)   ) }  compute_stats(mtcars$mpg) </code></pre>
+<pre><code>compute_stats &lt;- function(x) {   list(     mean = mean(x),     median = median(x),     variance = var(x),     IQR = IQR(x),     minimum = min(x),     maximum = max(x)   ) }  compute_stats(mtcars$mpg)</code></pre>
 </section>
 <section id="applying-the-function-with-a-for-loop" class="level2">
 <h2 class="anchored" data-anchor-id="applying-the-function-with-a-for-loop">Applying the function with a for loop</h2>
-<pre><code>for_results &lt;- list()  for (col_name in names(mtcars)) {   for_results[[col_name]] &lt;- compute_stats(mtcars[[col_name]]) }  for_results </code></pre>
+<pre><code>for_results &lt;- list()  for (col_name in names(mtcars)) {   for_results[[col_name]] &lt;- compute_stats(mtcars[[col_name]]) }  for_results</code></pre>
 </section>
 <section id="applying-the-function-with-sapply" class="level2">
 <h2 class="anchored" data-anchor-id="applying-the-function-with-sapply">Applying the function with sapply</h2>
-<pre><code>sapply_results &lt;- sapply(mtcars, compute_stats, simplify = FALSE) sapply_results </code></pre>
+<pre><code>sapply_results &lt;- sapply(mtcars, compute_stats, simplify = FALSE) sapply_results</code></pre>
 </section>
 <section id="applying-the-function-with-apply" class="level2">
 <h2 class="anchored" data-anchor-id="applying-the-function-with-apply">Applying the function with apply</h2>
-<pre><code>apply_results &lt;- apply(mtcars, 2, compute_stats) apply_results </code></pre>
-</section>
-</section>
-<section id="part-d-data-manipulation-tasks" class="level1">
-<h1>Part (d): Data Manipulation Tasks</h1>
-<pre><code>library(dslabs) data("polls_us_election_2016")  data_original &lt;- polls_us_election_2016 </code></pre>
-<section id="define-personal-variables" class="level2">
-<h2 class="anchored" data-anchor-id="define-personal-variables">Define personal variables</h2>
-<pre><code>my_first &lt;- "Burcu" my_birth_year &lt;- 1999  k &lt;- (nchar(my_first) + my_birth_year) %% 15 + 8  my_first my_birth_year k </code></pre>
-</section>
-<section id="display-k-rows-from-the-original-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="display-k-rows-from-the-original-dataset">Display k rows from the original dataset</h2>
-<pre><code>if (k %% 2 == 0) {   selected_original &lt;- head(data_original, k) } else {   selected_original &lt;- tail(data_original, k) }  selected_original </code></pre>
-</section>
-<section id="total-number-of-na-values-in-the-original-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="total-number-of-na-values-in-the-original-dataset">Total number of NA values in the original dataset</h2>
-<pre><code>total_na_original &lt;- sum(is.na(data_original)) total_na_original </code></pre>
-</section>
-<section id="number-of-na-values-per-column-sorted-from-largest-to-smallest-top-8" class="level2">
-<h2 class="anchored" data-anchor-id="number-of-na-values-per-column-sorted-from-largest-to-smallest-top-8">Number of NA values per column, sorted from largest to smallest (top 8)</h2>
-<pre><code>na_per_column &lt;- colSums(is.na(data_original)) na_sorted &lt;- sort(na_per_column, decreasing = TRUE) top_8_na &lt;- head(na_sorted, 8)  top_8_na </code></pre>
-</section>
-<section id="replace-all-na-values-and-store-as-a-new-object" class="level2">
-<h2 class="anchored" data-anchor-id="replace-all-na-values-and-store-as-a-new-object">Replace all NA values and store as a new object</h2>
-<pre><code>new_data &lt;- data_original  for (col_name in names(new_data)) {   if (is.numeric(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- my_birth_year + k   } else if (is.character(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- paste0(my_first, "_", k)   } else if (is.factor(new_data[[col_name]])) {     new_data[[col_name]] &lt;- as.character(new_data[[col_name]])     new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- paste0(my_first, "_", k)   } } </code></pre>
-</section>
-<section id="display-k-rows-from-the-new-dataset-using-the-same-rule" class="level2">
-<h2 class="anchored" data-anchor-id="display-k-rows-from-the-new-dataset-using-the-same-rule">Display k rows from the new dataset using the same rule</h2>
-<pre><code>if (k %% 2 == 0) {   selected_new &lt;- head(new_data, k) } else {   selected_new &lt;- tail(new_data, k) }  selected_new </code></pre>
-</section>
-<section id="remaining-total-number-of-na-values-in-the-new-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="remaining-total-number-of-na-values-in-the-new-dataset">Remaining total number of NA values in the new dataset</h2>
-<pre><code>sum(is.na(new_data)) </code></pre>
-</section>
-<section id="check-with-anyna" class="level2">
-<h2 class="anchored" data-anchor-id="check-with-anyna">Check with anyNA</h2>
-<pre><code>anyNA(new_data) </code></pre>
+<pre><code>apply_results &lt;- apply(mtcars, 2, compute_stats) apply_results</code></pre>
 
 
 </section>
