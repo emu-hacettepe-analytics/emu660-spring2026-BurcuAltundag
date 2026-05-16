@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data – Burcu’s Analytics Lab</title>
+<title>project – Burcu's Analytics Lab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -304,23 +339,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-overview-and-scope" id="toc-project-overview-and-scope" class="nav-link active" data-scroll-target="#project-overview-and-scope">1. Project Overview and Scope</a>
+  <li><a href="#traffic-accident-patterns-a-comparative-analysis-of-us-and-türkiye-traffic-data" id="toc-traffic-accident-patterns-a-comparative-analysis-of-us-and-türkiye-traffic-data" class="nav-link active" data-scroll-target="#traffic-accident-patterns-a-comparative-analysis-of-us-and-türkiye-traffic-data"># Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data</a></li>
+  <li><a href="#project-overview-and-scope" id="toc-project-overview-and-scope" class="nav-link" data-scroll-target="#project-overview-and-scope">1 Project Overview and Scope</a>
   <ul class="collapse">
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">Problem Statement</a></li>
-  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
-  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
-  <li><a href="#scope-of-the-study" id="toc-scope-of-the-study" class="nav-link" data-scroll-target="#scope-of-the-study">Scope of the Study</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">1.1 Background</a></li>
+  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">1.2 Problem Statement</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">1.3 Objectives</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">1.4 Research Questions</a></li>
+  <li><a href="#scope-of-the-study" id="toc-scope-of-the-study" class="nav-link" data-scroll-target="#scope-of-the-study">1.5 Scope of the Study</a></li>
   </ul></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2 Data</a>
   <ul class="collapse">
   <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">2.1 Data Source</a></li>
   <li><a href="#general-information-about-data" id="toc-general-information-about-data" class="nav-link" data-scroll-target="#general-information-about-data">2.2 General Information About Data</a></li>
   <li><a href="#reason-of-choice" id="toc-reason-of-choice" class="nav-link" data-scroll-target="#reason-of-choice">2.3 Reason of Choice</a></li>
   <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">2.4 Preprocessing</a></li>
-  </ul></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">3. Analysis</a>
-  <ul class="collapse">
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">3.1 Exploratory Data Analysis</a></li>
   <li><a href="#trend-analysis" id="toc-trend-analysis" class="nav-link" data-scroll-target="#trend-analysis">3.2 Trend Analysis</a></li>
   <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting">3.3 Model Fitting</a></li>
@@ -335,210 +368,286 @@ ul.task-list li input[type="checkbox"] {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
+<section id="traffic-accident-patterns-a-comparative-analysis-of-us-and-türkiye-traffic-data" class="level2">
+<h2 class="anchored" data-anchor-id="traffic-accident-patterns-a-comparative-analysis-of-us-and-türkiye-traffic-data"># Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data</h2>
+</section>
 <section id="project-overview-and-scope" class="level1">
-<h1>1. Project Overview and Scope</h1>
+<h1>1 Project Overview and Scope</h1>
 <section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
+<h2 class="anchored" data-anchor-id="background">1.1 Background</h2>
 <p>Traffic accidents are one of the major public safety problems worldwide and lead to significant human and economic losses every year. Understanding accident patterns and identifying factors associated with traffic accidents can help improve traffic safety and support better decision-making. Comparing accident data from different countries may also provide useful insights into similarities and differences in traffic behaviors and risk factors.</p>
 </section>
 <section id="problem-statement" class="level2">
-<h2 class="anchored" data-anchor-id="problem-statement">Problem Statement</h2>
+<h2 class="anchored" data-anchor-id="problem-statement">1.2 Problem Statement</h2>
 <p>Traffic accidents are influenced by many factors such as weather conditions, time of day, road conditions, and traffic density. However, the relationships among these factors are often difficult to understand without data analysis. This project aims to investigate traffic accident patterns and examine the factors associated with accident severity.</p>
 </section>
 <section id="objectives" class="level2">
-<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<h2 class="anchored" data-anchor-id="objectives">1.3 Objectives</h2>
 <p>The objectives of this project are:</p>
 <ul>
-<li>To analyze traffic accident patterns using a large-scale traffic accident dataset from the United States.</li>
-<li>To compare accident trends between the United States and Türkiye.</li>
-<li>To identify temporal and environmental factors associated with traffic accidents.</li>
-<li>To investigate factors affecting accident severity.</li>
-<li>To provide data-driven insights for traffic safety and decision-making.</li>
+<li>To analyze traffic accident patterns using a large-scale traffic accident dataset from the United States</li>
+<li>To compare accident trends between the United States and Türkiye</li>
+<li>To identify temporal and environmental factors associated with traffic accidents</li>
+<li>To investigate factors affecting accident severity</li>
+<li>To provide data-driven insights for traffic safety and decision-making</li>
 </ul>
 </section>
 <section id="research-questions" class="level2">
-<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<h2 class="anchored" data-anchor-id="research-questions">1.4 Research Questions</h2>
 <p>This project aims to answer the following questions:</p>
 <ol type="1">
 <li>How do traffic accident patterns change over time?</li>
 <li>Which environmental and temporal factors are associated with accidents?</li>
 <li>What factors affect accident severity?</li>
-<li>Are there similarities between traffic accident trends in the United States and Türkiye?</li>
+<li>Are there similarities between traffic accident trends between the United States and Türkiye?</li>
 </ol>
 </section>
 <section id="scope-of-the-study" class="level2">
-<h2 class="anchored" data-anchor-id="scope-of-the-study">Scope of the Study</h2>
-<p>This study uses publicly available traffic accident datasets from the United States and Türkiye. The US accident dataset will be used for detailed exploratory and predictive analyses, while traffic statistics from Türkiye will be used to establish comparisons and identify potential similarities and differences in accident patterns.</p>
+<h2 class="anchored" data-anchor-id="scope-of-the-study">1.5 Scope of the Study</h2>
+<p>This study uses publicly available traffic accident datasets from the United States and Türkiye. The US accident dataset will be used for detailed exploratory analysis, while traffic statistics from Türkiye will be used to establish comparisons and identify similarities and differences in traffic accident patterns.</p>
+<hr>
 </section>
 </section>
 <section id="data" class="level1">
-<h1>2. Data</h1>
+<h1>2 Data</h1>
 <section id="data-source" class="level2">
 <h2 class="anchored" data-anchor-id="data-source">2.1 Data Source</h2>
-<p>This project uses two publicly available traffic accident datasets: one from the United States and one from Türkiye. The purpose of using two datasets is to analyze detailed accident patterns from the US data and establish a comparative connection with Türkiye.<br>
-<br>
-The US Accidents dataset was obtained from Kaggle. It covers traffic accidents across 49 states in the United States between February 2016 and March 2023. The dataset contains approximately 7.7 million accident records collected from multiple traffic data sources such as transportation departments, law enforcement agencies, traffic cameras, and traffic sensors.The data include variables related to accident severity, weather conditions, location, time, and environmental characteristics.<br>
-<br>
-The Türkiye traffic accident statistics were obtained from the Turkish Statistical Institute (TÜİK). This dataset provides yearly national traffic statistics such as the number of accidents, fatalities, injuries, and registered vehicles.<br>
-<br>
-Data sources:<br>
-<br>
-- US Accidents Dataset: https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents<br>
-- TÜİK Traffic Accident Statistics: https://data.tuik.gov.tr/<br>
-</p>
-<p>```{r}<br>
-#| code-fold: true<br>
-#| code-summary: “Show code”<br>
-<br>
-library(tidyverse)<br>
-library(readr)<br>
-library(readxl)<br>
-library(lubridate)<br>
-```<br>
-<br>
-```{r}<br>
-#| code-fold: true<br>
-#| code-summary: “Show code”<br>
-<br>
-us_accidents &lt;- read_csv(“data/US_Accidents.csv”)<br>
-turkiye_accidents &lt;- read_excel(“data/turkiye_traffic_accidents.xlsx”)<br>
-```</p>
+<p>This project uses two publicly available traffic accident datasets: one from the United States and one from Türkiye. The purpose of using these datasets together is to analyze detailed accident patterns using the US dataset while establishing a comparative connection with Türkiye.</p>
+<p>The US Accidents dataset was obtained from Kaggle and covers traffic accidents across 49 states of the United States between February 2016 and March 2023. The dataset contains approximately 7.7 million accident records collected from multiple traffic information sources such as transportation departments, law enforcement agencies, traffic cameras, and traffic sensors.</p>
+<p>The Türkiye traffic accident data were obtained from the Turkish Statistical Institute (TÜİK). The Türkiye data consist of yearly traffic accident statistics downloaded separately and include province-level accident information and weekday-based accident summaries.</p>
+<p>Data sources:</p>
+<ul>
+<li>US Accidents Dataset: https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents</li>
+<li>TÜİK Traffic Accident Statistics: https://data.tuik.gov.tr/</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>us_accidents <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/US_Accidents_March23.csv"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_max =</span> <span class="dv">100000</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>accident_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/turkey_raw"</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"^accidents_.*</span><span class="sc">\\</span><span class="st">.xlsx$"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>weekday_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/turkey_raw"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"^weekday_accidents_.*</span><span class="sc">\\</span><span class="st">.xlsx$"</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
 </section>
 <section id="general-information-about-data" class="level2">
 <h2 class="anchored" data-anchor-id="general-information-about-data">2.2 General Information About Data</h2>
-<p>The US Accidents dataset is an accident-level dataset. Each row represents a traffic accident record. Since the dataset includes detailed information about time, location, weather, and accident severity, it is suitable for exploratory and predictive analysis.<br>
-<br>
-Some important variables in the US dataset are:<br>
-<br>
-| Variable | Description |<br>
-|—|—|<br>
-| Severity | Severity level of the accident |<br>
-| Start_Time | Date and time of accident occurrence |<br>
-| Weather_Condition | Weather condition during the accident |<br>
-| Temperature(F) | Temperature at the accident time |<br>
-| Visibility(mi) | Visibility level |<br>
-| City | City where the accident occurred |<br>
-| State | State where the accident occurred |<br>
-<br>
-The Türkiye dataset is more aggregated compared to the US dataset. It provides yearly traffic accident statistics at the national level. Therefore, it is used mainly to compare general trends and establish a Türkiye-related context.<br>
-<br>
-Main variables in the Türkiye dataset are:<br>
-<br>
-| Variable | Description |<br>
-|—|—|<br>
-| Year | Observation year |<br>
-| Number_of_Accidents | Total number of traffic accidents |<br>
-| Fatalities | Number of deaths |<br>
-| Injuries | Number of injuries |<br>
-| Registered_Vehicles | Number of registered vehicles |<br>
-<br>
-```{r}<br>
-#| code-fold: true<br>
-#| code-summary: “Show code”<br>
-<br>
-glimpse(us_accidents)<br>
-glimpse(turkiye_accidents)<br>
-```</p>
+<p>The US dataset contains detailed accident-level information where each row represents a single accident event. The dataset includes variables related to accident severity, weather conditions, geographical information, and temporal characteristics.</p>
+<p>Some important variables used in this study are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Severity</td>
+<td>Severity level of the accident</td>
+</tr>
+<tr class="even">
+<td>Start_Time</td>
+<td>Date and time of accident occurrence</td>
+</tr>
+<tr class="odd">
+<td>Weather_Condition</td>
+<td>Weather condition during accident</td>
+</tr>
+<tr class="even">
+<td>Temperature(F)</td>
+<td>Temperature at the time of accident</td>
+</tr>
+<tr class="odd">
+<td>Visibility(mi)</td>
+<td>Visibility level</td>
+</tr>
+<tr class="even">
+<td>City</td>
+<td>Accident city</td>
+</tr>
+<tr class="odd">
+<td>State</td>
+<td>Accident state</td>
+</tr>
+</tbody>
+</table>
+<p>The Türkiye dataset is more aggregated and focuses on yearly traffic statistics. It is mainly used to establish a comparison with US traffic patterns.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(us_accidents)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100000     46</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(accident_files)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data/turkey_raw/accidents_2018.xlsx" "data/turkey_raw/accidents_2019.xlsx"
+[3] "data/turkey_raw/accidents_2020.xlsx" "data/turkey_raw/accidents_2021.xlsx"
+[5] "data/turkey_raw/accidents_2022.xlsx" "data/turkey_raw/accidents_2023.xlsx"
+[7] "data/turkey_raw/accidents_2024.xlsx"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(weekday_files)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data/turkey_raw/weekday_accidents_2018.xlsx"
+[2] "data/turkey_raw/weekday_accidents_2019.xlsx"
+[3] "data/turkey_raw/weekday_accidents_2020.xlsx"
+[4] "data/turkey_raw/weekday_accidents_2021.xlsx"
+[5] "data/turkey_raw/weekday_accidents_2022.xlsx"
+[6] "data/turkey_raw/weekday_accidents_2023.xlsx"
+[7] "data/turkey_raw/weekday_accidents_2024.xlsx"</code></pre>
+</div>
+</div>
+<p>The output above shows the dimensions of the US dataset and confirms that all yearly Türkiye datasets were successfully imported into the project.</p>
 </section>
 <section id="reason-of-choice" class="level2">
 <h2 class="anchored" data-anchor-id="reason-of-choice">2.3 Reason of Choice</h2>
-<p>Traffic accidents are an important public safety issue that causes human losses, injuries, and economic costs. For this reason, analyzing accident data can support better decision-making and traffic safety planning.<br>
-<br>
-The US Accidents dataset was selected because it is large, detailed, and suitable for analyzing accident severity, time-based patterns, and weather-related factors. The Türkiye dataset was selected to connect the study with Türkiye and compare general accident trends between the two countries.<br>
-<br>
-Using these two datasets together makes it possible to benefit from the detailed structure of the US data while also keeping the project relevant to Türkiye.</p>
+<p>Traffic accidents are one of the most important public safety issues worldwide because they result in injuries, fatalities, and economic losses.</p>
+<p>The US dataset was selected because it provides highly detailed accident information and supports analyses involving accident severity, weather conditions, and temporal patterns.</p>
+<p>The Türkiye dataset was selected to establish a country-specific context and compare general accident characteristics between the two countries.</p>
+<p>Using both datasets together improves the practical relevance of the study while providing richer analytical opportunities.</p>
 </section>
 <section id="preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="preprocessing">2.4 Preprocessing</h2>
-<p>Before the analysis, both datasets were imported into R and prepared for analysis. The preprocessing stage included selecting relevant variables, handling missing values, converting date-time variables, and creating new variables for temporal analysis.<br>
-<br>
-The planned preprocessing steps are:<br>
-<br>
-- Importing CSV and Excel datasets into R<br>
-- Selecting relevant variables for analysis<br>
-- Removing missing observations where necessary<br>
-- Converting date and time variables into appropriate formats<br>
-- Extracting additional variables such as hour, month, and day of the week<br>
-- Checking and removing inconsistent values<br>
-- Saving the cleaned dataset in `.RData` format<br>
-<br>
-```{r}<br>
-#| code-fold: true<br>
-#| code-summary: “Show code”<br>
-<br>
-us_accidents_clean &lt;- us_accidents %&gt;%<br>
-select(<br>
-Severity,<br>
-Start_Time,<br>
-State,<br>
-City,<br>
-Weather_Condition,<br>
-`Temperature(F)`,<br>
-`Visibility(mi)`<br>
-)<br>
-```<br>
-<br>
-```{r}<br>
-#| code-fold: true<br>
-#| code-summary: “Show code”<br>
-<br>
-us_accidents_clean &lt;- us_accidents_clean %&gt;%<br>
-mutate(<br>
-Start_Time = ymd_hms(Start_Time),<br>
-Year = year(Start_Time),<br>
-Month = month(Start_Time),<br>
-Hour = hour(Start_Time),<br>
-Weekday = wday(Start_Time, label = TRUE)<br>
-)<br>
-```<br>
-<br>
-```{r}<br>
-#| code-fold: true<br>
-#| code-summary: “Show code”<br>
-<br>
-us_accidents_clean &lt;- us_accidents_clean %&gt;%<br>
-drop_na()<br>
-```<br>
-<br>
-```{r}<br>
-#| code-fold: true<br>
-#| code-summary: “Show code”<br>
-<br>
-save(<br>
-us_accidents_clean,<br>
-turkiye_accidents,<br>
-file = “data/traffic_accidents_clean.RData”<br>
-)<br>
-```<br>
-<br>
-After these preprocessing steps, the cleaned datasets will be used for exploratory data analysis, visualization, and comparison between the United States and Türkiye.</p>
-</section>
-</section>
-<section id="analysis" class="level1">
-<h1>3. Analysis</h1>
+<p>Before starting the analysis, both datasets were prepared in R. Since the US dataset contains millions of records, a sample of 100,000 observations was used during the initial analysis stage to reduce computational burden.</p>
+<p>The preprocessing steps applied are:</p>
+<ul>
+<li>Importing datasets into R</li>
+<li>Combining yearly Türkiye files</li>
+<li>Selecting relevant variables</li>
+<li>Creating time-related variables</li>
+<li>Handling missing values</li>
+<li>Preparing datasets for exploratory analysis</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>turkey_accidents <span class="ot">&lt;-</span> <span class="fu">map_df</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  accident_files,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  read_excel</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...6`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...7`</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>turkey_weekday <span class="ot">&lt;-</span> <span class="fu">map_df</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  weekday_files,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  read_excel</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...3`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...4`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>us_accidents_clean <span class="ot">&lt;-</span> us_accidents <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    Severity,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    Start_Time,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    State,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    City,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    Weather_Condition,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Temperature(F)</span><span class="st">`</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Visibility(mi)</span><span class="st">`</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">year</span>(Start_Time),</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Month =</span> <span class="fu">month</span>(Start_Time),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Hour =</span> <span class="fu">hour</span>(Start_Time),</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Weekday =</span> <span class="fu">wday</span>(Start_Time, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(us_accidents_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 97419    11</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(turkey_accidents)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 581   8</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(turkey_weekday)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70  6</code></pre>
+</div>
+</div>
+<p>The outputs above show the dimensions of the processed datasets that will be used in the exploratory and comparative analysis stages. # 3. Analysis</p>
 <p>xxxxxx</p>
+</section>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">3.1 Exploratory Data Analysis</h2>
 <p>xxxxxx</p>
