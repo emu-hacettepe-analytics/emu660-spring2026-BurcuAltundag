@@ -1,36 +1,187 @@
 ---
-title: "Project X"
+title: "Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data"
 ---
-
-Welcome to my/our project page.
-
-Keep an eye on this space to stay updated with my project activities.
-
-(The titles below are provided as examples; please feel free to adjust them as necessary.)
+title: "Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data"
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+---
 
 # 1. Project Overview and Scope
 
-xxxxxx
+## Background
+
+Traffic accidents are one of the major public safety problems worldwide and lead to significant human and economic losses every year. Understanding accident patterns and identifying factors associated with traffic accidents can help improve traffic safety and support better decision-making. Comparing accident data from different countries may also provide useful insights into similarities and differences in traffic behaviors and risk factors.
+
+## Problem Statement
+
+Traffic accidents are influenced by many factors such as weather conditions, time of day, road conditions, and traffic density. However, the relationships among these factors are often difficult to understand without data analysis. This project aims to investigate traffic accident patterns and examine the factors associated with accident severity.
+
+## Objectives
+
+The objectives of this project are:
+
+-   To analyze traffic accident patterns using a large-scale traffic accident dataset from the United States.
+-   To compare accident trends between the United States and Türkiye.
+-   To identify temporal and environmental factors associated with traffic accidents.
+-   To investigate factors affecting accident severity.
+-   To provide data-driven insights for traffic safety and decision-making.
+
+## Research Questions
+
+This project aims to answer the following questions:
+
+1.  How do traffic accident patterns change over time?
+2.  Which environmental and temporal factors are associated with accidents?
+3.  What factors affect accident severity?
+4.  Are there similarities between traffic accident trends in the United States and Türkiye?
+
+## Scope of the Study
+
+This study uses publicly available traffic accident datasets from the United States and Türkiye. The US accident dataset will be used for detailed exploratory and predictive analyses, while traffic statistics from Türkiye will be used to establish comparisons and identify potential similarities and differences in accident patterns.
 
 # 2. Data
 
-xxxxxx
-
 ## 2.1 Data Source
 
-xxxxxx
+This project uses two publicly available traffic accident datasets: one from the United States and one from Türkiye. The purpose of using two datasets is to analyze detailed accident patterns from the US data and establish a comparative connection with Türkiye.\
+\
+The US Accidents dataset was obtained from Kaggle. It covers traffic accidents across 49 states in the United States between February 2016 and March 2023. The dataset contains approximately 7.7 million accident records collected from multiple traffic data sources such as transportation departments, law enforcement agencies, traffic cameras, and traffic sensors.The data include variables related to accident severity, weather conditions, location, time, and environmental characteristics.\
+\
+The Türkiye traffic accident statistics were obtained from the Turkish Statistical Institute (TÜİK). This dataset provides yearly national traffic statistics such as the number of accidents, fatalities, injuries, and registered vehicles.\
+\
+Data sources:\
+\
+- US Accidents Dataset: https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents\
+- TÜİK Traffic Accident Statistics: https://data.tuik.gov.tr/\
+
+\`\`\`{r}\
+#\| code-fold: true\
+#\| code-summary: "Show code"\
+\
+library(tidyverse)\
+library(readr)\
+library(readxl)\
+library(lubridate)\
+\`\`\`\
+\
+\`\`\`{r}\
+#\| code-fold: true\
+#\| code-summary: "Show code"\
+\
+us_accidents \<- read_csv("data/US_Accidents.csv")\
+turkiye_accidents \<- read_excel("data/turkiye_traffic_accidents.xlsx")\
+\`\`\`
 
 ## 2.2 General Information About Data
 
-xxxxxx
+The US Accidents dataset is an accident-level dataset. Each row represents a traffic accident record. Since the dataset includes detailed information about time, location, weather, and accident severity, it is suitable for exploratory and predictive analysis.\
+\
+Some important variables in the US dataset are:\
+\
+\| Variable \| Description \|\
+\|---\|---\|\
+\| Severity \| Severity level of the accident \|\
+\| Start_Time \| Date and time of accident occurrence \|\
+\| Weather_Condition \| Weather condition during the accident \|\
+\| Temperature(F) \| Temperature at the accident time \|\
+\| Visibility(mi) \| Visibility level \|\
+\| City \| City where the accident occurred \|\
+\| State \| State where the accident occurred \|\
+\
+The Türkiye dataset is more aggregated compared to the US dataset. It provides yearly traffic accident statistics at the national level. Therefore, it is used mainly to compare general trends and establish a Türkiye-related context.\
+\
+Main variables in the Türkiye dataset are:\
+\
+\| Variable \| Description \|\
+\|---\|---\|\
+\| Year \| Observation year \|\
+\| Number_of_Accidents \| Total number of traffic accidents \|\
+\| Fatalities \| Number of deaths \|\
+\| Injuries \| Number of injuries \|\
+\| Registered_Vehicles \| Number of registered vehicles \|\
+\
+\`\`\`{r}\
+#\| code-fold: true\
+#\| code-summary: "Show code"\
+\
+glimpse(us_accidents)\
+glimpse(turkiye_accidents)\
+\`\`\`
 
 ## 2.3 Reason of Choice
 
-xxxxxx
+Traffic accidents are an important public safety issue that causes human losses, injuries, and economic costs. For this reason, analyzing accident data can support better decision-making and traffic safety planning.\
+\
+The US Accidents dataset was selected because it is large, detailed, and suitable for analyzing accident severity, time-based patterns, and weather-related factors. The Türkiye dataset was selected to connect the study with Türkiye and compare general accident trends between the two countries.\
+\
+Using these two datasets together makes it possible to benefit from the detailed structure of the US data while also keeping the project relevant to Türkiye.
 
 ## 2.4 Preprocessing
 
-xxxxxx
+Before the analysis, both datasets were imported into R and prepared for analysis. The preprocessing stage included selecting relevant variables, handling missing values, converting date-time variables, and creating new variables for temporal analysis.\
+\
+The planned preprocessing steps are:\
+\
+- Importing CSV and Excel datasets into R\
+- Selecting relevant variables for analysis\
+- Removing missing observations where necessary\
+- Converting date and time variables into appropriate formats\
+- Extracting additional variables such as hour, month, and day of the week\
+- Checking and removing inconsistent values\
+- Saving the cleaned dataset in \`.RData\` format\
+\
+\`\`\`{r}\
+#\| code-fold: true\
+#\| code-summary: "Show code"\
+\
+us_accidents_clean \<- us_accidents %\>%\
+select(\
+Severity,\
+Start_Time,\
+State,\
+City,\
+Weather_Condition,\
+\`Temperature(F)\`,\
+\`Visibility(mi)\`\
+)\
+\`\`\`\
+\
+\`\`\`{r}\
+#\| code-fold: true\
+#\| code-summary: "Show code"\
+\
+us_accidents_clean \<- us_accidents_clean %\>%\
+mutate(\
+Start_Time = ymd_hms(Start_Time),\
+Year = year(Start_Time),\
+Month = month(Start_Time),\
+Hour = hour(Start_Time),\
+Weekday = wday(Start_Time, label = TRUE)\
+)\
+\`\`\`\
+\
+\`\`\`{r}\
+#\| code-fold: true\
+#\| code-summary: "Show code"\
+\
+us_accidents_clean \<- us_accidents_clean %\>%\
+drop_na()\
+\`\`\`\
+\
+\`\`\`{r}\
+#\| code-fold: true\
+#\| code-summary: "Show code"\
+\
+save(\
+us_accidents_clean,\
+turkiye_accidents,\
+file = "data/traffic_accidents_clean.RData"\
+)\
+\`\`\`\
+\
+After these preprocessing steps, the cleaned datasets will be used for exploratory data analysis, visualization, and comparison between the United States and Türkiye.
 
 # 3. Analysis
 
