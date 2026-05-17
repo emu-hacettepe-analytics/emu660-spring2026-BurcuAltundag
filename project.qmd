@@ -171,26 +171,269 @@ dim(turkey_accidents)
 dim(turkey_weekday)
 ```
 
-The outputs above show the dimensions of the processed datasets that will be used in the exploratory and comparative analysis stages. \# 3. Analysis
+The outputs above show the dimensions of the processed datasets that will be used in the exploratory and comparative analysis stages. 
 
-xxxxxx
+# 3. Analysis
+
+
+# Analysis
 
 ## 3.1 Exploratory Data Analysis
 
-xxxxxx
+In this section, the US accident data are explored to understand general accident patterns in terms of time, location, severity, weather conditions, and environmental factors.
+
+### 3.1.1 Yearly Accident Trend in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+us_yearly <- read_csv(
+  "data/US_Accidents_March23.csv",
+  col_select = Start_Time,
+  show_col_types = FALSE
+) %>%
+  mutate(
+    Year = year(Start_Time)
+  ) %>%
+  filter(
+    Year < 2023
+  ) %>%
+  count(Year)
+
+ggplot(
+  us_yearly,
+  aes(
+    x = Year,
+    y = n
+  )
+) +
+geom_line(linewidth = 1) +
+geom_point(size = 3) +
+scale_x_continuous(
+  breaks = unique(us_yearly$Year)
+) +
+labs(
+  title = "Yearly Trend of Traffic Accidents in the US (2016–2022)",
+  x = "Year",
+  y = "Number of Accidents"
+) +
+theme_minimal()
+```
+
+The graph presents the yearly change in accident frequency across the US dataset. Records from 2023 were excluded because the dataset only contains accident data until March 2023. Including incomplete yearly data could create misleading trends.
+
+### 3.1.1.1 Dataset Coverage by Year in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+us_coverage <- read_csv(
+  "data/US_Accidents_March23.csv",
+  col_select = c(Start_Time, State, City),
+  show_col_types = FALSE
+) %>%
+  mutate(
+    Year = year(Start_Time)
+  ) %>%
+  filter(
+    Year < 2023
+  ) %>%
+  group_by(Year) %>%
+  summarise(
+    Number_of_States = n_distinct(State),
+    Number_of_Cities = n_distinct(City)
+  )
+
+ggplot(
+  us_coverage,
+  aes(
+    x = Year,
+    y = Number_of_Cities
+  )
+) +
+geom_line(linewidth = 1) +
+geom_point(size = 3) +
+scale_x_continuous(
+  breaks = unique(us_coverage$Year)
+) +
+labs(
+  title = "Number of Cities Covered in the US Dataset by Year",
+  x = "Year",
+  y = "Number of Cities"
+) +
+theme_minimal()
+```
+
+The increase in accident records between 2016 and 2022 cannot be explained solely by broader geographic coverage. The number of cities represented in the dataset increased by approximately 50% during this period, whereas the number of accident records increased by nearly four times. Therefore, the increase in accident records appears to be larger than the expansion in geographic coverage alone. This suggests that both dataset expansion and actual changes in accident patterns may contribute to the observed trend.
+
+### 3.1.2 Traffic Accidents by Weekday in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+us_weekday <- us_accidents_clean %>%
+  count(Weekday)
+
+ggplot(us_weekday, aes(x = Weekday, y = n)) +
+  geom_col() +
+  labs(
+    title = "Traffic Accidents by Weekday in the US",
+    x = "Weekday",
+    y = "Number of Accidents"
+  ) +
+  theme_minimal()
+```
+
+This graph investigates whether accidents are concentrated on specific weekdays.
+
+### 3.1.3 Traffic Accidents by Hour of Day in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+us_hourly <- us_accidents_clean %>%
+  count(Hour)
+
+ggplot(us_hourly, aes(x = Hour, y = n)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  scale_x_continuous(breaks = 0:23) +
+  labs(
+    title = "Traffic Accidents by Hour of Day in the US",
+    x = "Hour of Day",
+    y = "Number of Accidents"
+  ) +
+  theme_minimal()
+```
+
+Accident frequency may vary throughout the day due to traffic intensity and commuting periods.
+
+### 3.1.4 Top Cities with Highest Accident Frequency in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+top_cities <- us_accidents_clean %>%
+  count(City, sort = TRUE) %>%
+  slice_head(n = 10)
+
+ggplot(top_cities, aes(x = reorder(City, n), y = n)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Top 10 Cities with Highest Accident Frequency in the US",
+    x = "City",
+    y = "Number of Accidents"
+  ) +
+  theme_minimal()
+```
+
+This graph identifies the cities where accidents are most concentrated in the selected US sample.
+
+### 3.1.5 Accident Severity Distribution in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+severity_distribution <- us_accidents_clean %>%
+  count(Severity)
+
+ggplot(severity_distribution, aes(x = factor(Severity), y = n)) +
+  geom_col() +
+  labs(
+    title = "Accident Severity Distribution in the US",
+    x = "Severity Level",
+    y = "Number of Accidents"
+  ) +
+  theme_minimal()
+```
+
+This analysis examines how accident records are distributed across severity levels.
+
+### 3.1.6 Accident Severity by Weather Condition in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+top_weather <- us_accidents_clean %>%
+  count(Weather_Condition, sort = TRUE) %>%
+  slice_head(n = 8) %>%
+  pull(Weather_Condition)
+
+weather_severity <- us_accidents_clean %>%
+  filter(Weather_Condition %in% top_weather) %>%
+  count(Weather_Condition, Severity)
+
+ggplot(
+  weather_severity,
+  aes(
+    x = reorder(Weather_Condition, n),
+    y = n,
+    fill = factor(Severity)
+  )
+) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(
+    title = "Accident Severity by Weather Condition in the US",
+    x = "Weather Condition",
+    y = "Number of Accidents",
+    fill = "Severity"
+  ) +
+  theme_minimal()
+```
+
+Weather conditions may influence accident severity levels.
+
+### 3.1.7 Environmental Factors Associated with Accidents in the US
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+environmental_factors <- us_accidents %>%
+  summarise(
+    Junction = sum(Junction, na.rm = TRUE),
+    Traffic_Signal = sum(Traffic_Signal, na.rm = TRUE),
+    Crossing = sum(Crossing, na.rm = TRUE),
+    Railway = sum(Railway, na.rm = TRUE),
+    Stop = sum(Stop, na.rm = TRUE),
+    Give_Way = sum(Give_Way, na.rm = TRUE)
+  ) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Factor",
+    values_to = "Count"
+  )
+
+ggplot(environmental_factors, aes(x = reorder(Factor, Count), y = Count)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Environmental Factors Associated with Accidents in the US",
+    x = "Environmental Factor",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+```
+
+The dataset does not directly report accident causes. Therefore, environmental variables are used as proxy indicators for accident-related conditions.
 
 ## 3.2 Trend Analysis
 
-xxxxxx
+This section will compare traffic accident patterns between the US and Türkiye.
 
 ## 3.3 Model Fitting
 
-xxxxxx
+This section will include a simple model to investigate factors associated with accident severity.
 
 ## 3.4 Results
 
-xxxxxx
-
-# 4. Results and Key Takeaways
-
-xxxxxx
+The results section will summarize the main findings from the exploratory analysis, trend comparison, and model fitting.
