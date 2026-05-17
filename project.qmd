@@ -426,7 +426,6 @@ ggplot(environmental_factors, aes(x = reorder(Factor, Count), y = Count)) +
 
 The results indicate that accidents are associated with several environmental factors such as intersections, traffic signals, and crossings. These factors may contribute to accident occurrence due to increased traffic interactions and driving complexity.
 
-### 3.1.8 Peak Hour Environmental Factors
 ### 3.1.8 Peak Hour Environmental Factors in the US
 
 ```{r}
@@ -471,10 +470,7 @@ labs(
 theme_minimal()
 ```
 
-The graph investigates environmental factors associated with accidents during peak traffic hours. Identifying dominant factors during commuting periods may help support traffic management and accident prevention strategies.
-```
-
-The analysis indicates that accidents during peak traffic hours are more strongly associated with certain environmental factors such as intersections and traffic signals. Increased traffic interactions during commuting periods may increase the likelihood of conflicts between vehicles. Therefore, potential improvement strategies may include optimizing traffic signal timing, redesigning intersections, and implementing traffic flow management during peak hours.
+The analysis indicates that traffic signals and intersections appear more frequently in accident records during peak traffic hours. Increased vehicle interactions and traffic density during commuting periods may contribute to higher accident occurrence in these areas. Crossings also appear as an important factor, whereas railway crossings and give-way locations appear less frequently. These findings suggest that traffic signal optimization, intersection redesign, and traffic flow management strategies during peak hours may help improve traffic safety.
 
 ## 3.1.9 Overall Findings from US Exploratory Analysis
 
@@ -491,16 +487,458 @@ In addition, accident severity appeared to vary across different environmental a
 The peak-hour analysis further indicated that environmental conditions become more important during commuting periods. Factors such as intersections and traffic signals appear more frequently during high-traffic periods, suggesting that increased vehicle interactions may elevate accident risk. Potential improvement strategies may include optimized traffic signal timing, intersection redesign, and traffic flow management during peak hours.
 
 Overall, the results suggest that traffic accidents are influenced by multiple factors including temporal patterns, geographical characteristics, traffic density, environmental conditions, and dataset coverage.
+
+### 3.1.10 Yearly Accident Trend in Türkiye
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+library(readxl)
+library(stringr)
+library(readr)
+library(scales)
+
+turkey_yearly <- list.files(
+  "data/turkey_raw",
+  pattern = "^accidents_[0-9]{4}\\.xlsx$",
+  full.names = TRUE
+) %>%
+  map_dfr(function(file) {
+    temp <- read_excel(file)
+    
+    temp %>%
+      filter(.[[1]] == "Türkiye") %>%
+      transmute(
+        Year = as.numeric(str_extract(basename(file), "[0-9]{4}")),
+        Total_Accidents = parse_number(as.character(.[[3]]))
+      )
+  })
+
+ggplot(
+  turkey_yearly,
+  aes(
+    x = Year,
+    y = Total_Accidents,
+    color = "Total Accidents"
+  )
+) +
+geom_line(linewidth = 1.2) +
+geom_point(size = 3) +
+scale_color_manual(
+  values = c("Total Accidents" = "steelblue")
+) +
+scale_x_continuous(
+  breaks = turkey_yearly$Year
+) +
+scale_y_continuous(
+  limits = c(0, NA),
+  labels = comma
+) +
+labs(
+  title = "Yearly Trend of Traffic Accidents in Türkiye",
+  x = "Year",
+  y = "Number of Accidents",
+  color = "Legend"
+) +
+theme_minimal()
+```
+
+The graph shows the yearly change in total traffic accidents in Türkiye. The y-axis starts from zero to avoid a misleading visual impression and to show that the decrease in 2020 represents a decline, not the absence of accidents.
+
+### 3.1.11 Traffic Accident Heatmap by Province and Year in Türkiye
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+library(readxl)
+library(stringr)
+library(readr)
+
+turkey_heat <- list.files(
+  "data/turkey_raw",
+  pattern="^accidents_[0-9]{4}\\.xlsx$",
+  full.names=TRUE
+) %>%
+map_dfr(function(file){
+
+temp <- read_excel(file)
+
+temp %>%
+filter(
+!`Trafik Kaza Gösterge` %in%
+c("Türkiye","Kaza Ölüm Durum")
+) %>%
+transmute(
+Year=as.numeric(
+str_extract(
+basename(file),
+"[0-9]{4}"
+)
+),
+Province=`Trafik Kaza Gösterge`,
+Accidents=parse_number(
+as.character(
+`Toplam Kaza Sayısı`
+)
+)
+)
+})
+
+top10 <- turkey_heat %>%
+group_by(Province) %>%
+summarise(
+Total=sum(Accidents)
+)%>%
+arrange(desc(Total)) %>%
+slice_head(n=10)
+
+heat_final <- turkey_heat %>%
+filter(
+Province %in% top10$Province
+)
+
+ggplot(
+heat_final,
+aes(
+x=factor(Year),
+y=reorder(Province,Accidents),
+fill=Accidents
+)
+)+
+geom_tile()+
+labs(
+title="Traffic Accident Intensity by Province and Year in Türkiye",
+x="Year",
+y="Province",
+fill="Accidents"
+)+
+theme_minimal()
+```
+
+The heatmap illustrates how accident intensity changes across provinces and years and helps identify provinces with consistently high accident frequencies.
+
+### 3.1.12 Registered Vehicles vs Traffic Accidents in Türkiye
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+turkey_province <- turkey_accidents %>%
+  filter(
+    !`Trafik Kaza Gösterge` %in% c("Türkiye", "Kaza Ölüm Durum")
+  ) %>%
+  transmute(
+    Province = `Trafik Kaza Gösterge`,
+    Registered_Vehicles = readr::parse_number(as.character(.[[2]])),
+    Total_Accidents = readr::parse_number(as.character(.[[3]]))
+  ) %>%
+  filter(
+    !is.na(Registered_Vehicles),
+    !is.na(Total_Accidents)
+  )
+
+model <- lm(
+  Total_Accidents ~ Registered_Vehicles,
+  data = turkey_province
+)
+
+turkey_province <- turkey_province %>%
+  mutate(
+    Predicted = predict(model),
+    Residual = Total_Accidents - Predicted
+  )
+
+outliers <- turkey_province %>%
+  arrange(desc(abs(Residual))) %>%
+  slice_head(n = 10)
+
+turkey_province <- turkey_province %>%
+  mutate(
+    Group = ifelse(
+      Province %in% outliers$Province,
+      "High Deviation Provinces",
+      "Other Provinces"
+    )
+  )
+
+ggplot(
+  turkey_province,
+  aes(
+    x = Registered_Vehicles,
+    y = Total_Accidents,
+    color = Group
+  )
+) +
+geom_point(size = 3) +
+geom_smooth(
+  method = "lm",
+  se = FALSE,
+  color = "black"
+) +
+scale_color_manual(
+  values = c(
+    "High Deviation Provinces" = "red",
+    "Other Provinces" = "darkgreen"
+  )
+) +
+labs(
+  title = "Registered Vehicles vs Traffic Accidents in Türkiye",
+  x = "Registered Vehicles",
+  y = "Number of Accidents",
+  color = "Legend"
+) +
+theme_minimal()
+```
+
+The graph identifies provinces that deviate from the expected relationship between registered vehicles and accident counts. Provinces highlighted in red represent locations where accident frequencies differ considerably from the overall trend.
+
+### 3.1.13 Traffic Accidents by Weekday in Türkiye
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+turkey_weekday_clean <- turkey_weekday %>%
+  filter(
+    !`Trafik Kaza Gösterge` %in% c("Toplam", "Gün", "Kaza Ölüm Durum")
+  ) %>%
+  transmute(
+    Weekday = `Trafik Kaza Gösterge`,
+    Fatal_Injury_Accidents = parse_number(as.character(.[[2]])),
+    Fatalities = parse_number(as.character(.[[3]])),
+    Injuries = parse_number(as.character(.[[6]]))
+  )
+
+ggplot(
+  turkey_weekday_clean,
+  aes(
+    x = reorder(Weekday, Fatal_Injury_Accidents),
+    y = Fatal_Injury_Accidents,
+    fill = "Fatal/Injury Accidents"
+  )
+) +
+geom_col() +
+coord_flip() +
+scale_fill_manual(values = c("Fatal/Injury Accidents" = "purple")) +
+labs(
+  title = "Fatal/Injury Traffic Accidents by Weekday in Türkiye",
+  x = "Weekday",
+  y = "Number of Fatal/Injury Accidents",
+  fill = "Legend"
+) +
+theme_minimal()
+```
+
+The weekday analysis indicates that fatal and injury traffic accidents are not evenly distributed across the days of the week. Friday has the highest number of accidents, whereas Sunday shows the lowest accident frequency. Higher accident counts on Fridays may be associated with increased traffic density caused by commuting activities and the beginning of weekend travel. In contrast, lower accident frequencies on Sundays may be explained by reduced traffic volume and fewer work-related trips.
+
+In addition, accident frequencies across weekdays appear relatively similar, suggesting that traffic accidents occur consistently throughout the week rather than being concentrated on a single day. However, the relatively higher accident frequency on Fridays indicates that certain periods may involve increased traffic risk and therefore require additional traffic monitoring and preventive measures.
+Traffic authorities may consider increasing traffic monitoring and implementing preventive measures during high-risk days such as Fridays.
+
+### 3.1.14 Overall Findings from Türkiye Exploratory Analysis
+
+The exploratory analysis of Türkiye traffic accident data reveals several important patterns. First, the yearly accident trend shows how total traffic accidents changed over time. This helps evaluate whether accident frequency increased or decreased across the selected years.
+
+Second, accident records are concentrated in specific provinces. Provinces with higher population density, vehicle ownership, and traffic volume tend to show higher accident frequencies.
+
+The relationship between registered vehicles and traffic accidents suggests that provinces with more registered vehicles generally experience more accidents. This indicates that traffic exposure is an important factor in accident occurrence.
+
+The weekday analysis shows that fatal and injury accidents are not evenly distributed across days of the week. Differences between weekdays may be related to commuting patterns, work-related travel, and changes in traffic volume.
+
+Overall, the Türkiye analysis suggests that traffic accidents are affected by multiple factors such as vehicle density, provincial traffic volume, travel behavior, and temporal patterns. Possible improvement strategies include improving road infrastructure in high-risk provinces, monitoring risky weekdays, strengthening traffic safety awareness, and developing targeted traffic control policies.
+
 ## 3.2 Trend Analysis
 
-This section will compare traffic accident patterns between the US and Türkiye.
+### 3.2.1 Yearly Accident Trend in Türkiye
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+library(scales)
+
+ggplot(
+  turkey_yearly,
+  aes(
+    x = Year,
+    y = Total_Accidents
+  )
+)+
+geom_area(
+  fill="skyblue",
+  alpha=0.5
+)+
+geom_line(
+  color="blue",
+  linewidth=1.2
+)+
+geom_point(
+  color="darkblue",
+  size=3
+)+
+scale_y_continuous(
+  labels = comma
+)+
+scale_x_continuous(
+  breaks=2018:2024
+)+
+labs(
+title="Yearly Traffic Accident Trend in Türkiye",
+x="Year",
+y="Number of Accidents"
+)+
+theme_minimal()
+```
+
+The graph illustrates yearly changes in traffic accident frequency in Türkiye. A noticeable decrease appears around 2020, followed by a continuous increase in later years.
+
+---
+
+### 3.2.2 Weekday Distribution: US vs Türkiye
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+us_weekday_compare <- us_accidents_clean %>%
+count(Weekday) %>%
+rename(
+Count=n
+) %>%
+mutate(
+Country="US"
+)
+
+turkey_weekday_compare <- turkey_weekday_clean %>%
+mutate(
+Country="Türkiye",
+Count=Fatal_Injury_Accidents
+) %>%
+select(
+Weekday,
+Count,
+Country
+)
+
+weekday_compare <- bind_rows(
+us_weekday_compare,
+turkey_weekday_compare
+) %>%
+group_by(Country) %>%
+mutate(
+Percent=Count/sum(Count)*100
+) %>%
+ungroup()
+
+ggplot(
+weekday_compare,
+aes(
+x=Weekday,
+y=Percent,
+fill=Country
+)
+)+
+geom_col(
+position="dodge"
+)+
+coord_flip()+
+scale_fill_manual(
+values=c(
+"US"="turquoise3",
+"Türkiye"="salmon"
+)
+)+
+labs(
+title="Weekday Accident Distribution: US vs Türkiye",
+x="Weekday",
+y="Percentage of Accidents (%)",
+fill="Country"
+)+
+theme_minimal()
+```
+
+The graph compares accident distributions between the US and Türkiye using percentages rather than raw counts.
+
+---
+
+### 3.2.3 Summary Comparison of US and Türkiye
+
+| Analysis Dimension | US Dataset | Türkiye Dataset | Main Finding |
+|---|---:|---:|---|
+| Yearly Trend | ✓ | ✓ | Accident frequencies change over time |
+| Weekday Pattern | ✓ | ✓ | Accidents vary across weekdays |
+| Hourly Pattern | ✓ | ✗ | Peak-hour analyses possible only for US |
+| Weather Conditions | ✓ | ✗ | Weather effects analyzed only in US |
+| Environmental Factors | ✓ | ✗ | Traffic signals/intersections available only for US |
+| Vehicle Ownership | ✗ | ✓ | Positive relationship with accidents |
+
+---
+
+### 3.2.4 Overall Findings from Trend Analysis
+
+The trend analysis reveals that traffic accident patterns vary over time and across different conditions. The yearly analysis in Türkiye demonstrated noticeable changes across years, including a decrease around 2020 followed by an increasing trend in subsequent years.
+
+The weekday comparison showed that accident frequencies are not equally distributed throughout the week in both countries. These variations may be associated with commuting behavior, traffic density, and mobility patterns.
+
+Although the two datasets differ in content and level of detail, both analyses suggest that traffic accidents are influenced by temporal factors rather than occurring randomly. Understanding these trends may support the development of more effective traffic safety policies and prevention strategies.
 
 ## 3.3 Model Fitting
 
-This section will include a simple model to investigate factors associated with accident severity.
+To further investigate the relationship between registered vehicles and traffic accidents in Türkiye, a simple linear regression model was applied. The objective of the model was to examine whether changes in the number of registered vehicles are associated with changes in accident frequencies.
+
+The regression model can be expressed as:
+
+\[
+Y=\beta_0+\beta_1X+\varepsilon
+\]
+
+where:
+
+- \(Y\) = Number of traffic accidents  
+- \(X\) = Number of registered vehicles  
+- \(\beta_0\) = Intercept  
+- \(\beta_1\) = Regression coefficient  
+- \(\varepsilon\) = Random error term  
+
+The fitted model indicated a positive relationship between registered vehicles and accident frequencies. In general, provinces with larger numbers of registered vehicles tended to experience more traffic accidents.
+
+However, several provinces deviated considerably from the fitted regression line. These observations suggest that vehicle ownership alone cannot completely explain accident frequencies. Additional factors such as population density, infrastructure quality, traffic conditions, and driving behavior may also contribute to accident occurrence.
+
+Overall, the regression model provides useful insights into accident patterns and highlights the importance of considering multiple variables when explaining traffic accidents.
 
 ## 3.4 Results
 
-The results section will summarize the main findings from the exploratory analysis, trend comparison, and model fitting.
+The analysis provided several important findings regarding traffic accident patterns in both the US and Türkiye datasets.
 
-# BURCU TEST
+First, accident frequencies showed temporal variations across years, weekdays, and traffic conditions. The yearly analyses demonstrated that accident occurrences changed over time rather than remaining constant.
+
+Second, environmental and traffic-related factors appeared to influence accident occurrence. The peak-hour analysis indicated that traffic signals and intersections were frequently associated with accidents, suggesting that increased vehicle interaction may contribute to higher accident risks.
+
+Third, the Türkiye analysis revealed a positive relationship between registered vehicles and accident frequencies. Provinces with larger vehicle populations generally experienced higher numbers of accidents.
+
+However, the presence of several provinces deviating from the expected regression trend indicated that vehicle ownership alone cannot fully explain accident occurrence. Additional factors such as infrastructure quality, population density, traffic management practices, and driver behavior may also affect accident frequencies.
+
+Overall, the results suggest that traffic accidents are affected by multiple interacting factors rather than a single variable.
+
+
+# 4. Results and Key Takeaways
+
+The comparative analysis of traffic accident data from the US and Türkiye provided useful insights into accident patterns and potential contributing factors.
+
+The findings showed that accident occurrence is influenced by temporal characteristics such as years, weekdays, and commuting patterns. Traffic accidents were not uniformly distributed over time, indicating that mobility behavior and traffic intensity play important roles.
+
+The analyses also demonstrated that environmental conditions and traffic characteristics can contribute to accident risk. Traffic signals, intersections, and peak-hour conditions appeared to be associated with higher accident frequencies.
+
+Furthermore, the relationship between vehicle ownership and accident frequency suggested that increased traffic exposure may increase accident risk. However, deviations from expected trends highlighted that traffic accidents are complex events influenced by many additional variables.
+
+Based on these findings, several practical recommendations can be suggested:
+
+- Increase traffic monitoring during high-risk periods.
+- Improve traffic signal optimization and intersection design.
+- Strengthen traffic safety awareness programs.
+- Improve road infrastructure in high-risk areas.
+- Develop data-driven traffic management policies.
+
+Overall, understanding accident patterns through data analysis can support more effective decision-making and contribute to improved traffic safety.
