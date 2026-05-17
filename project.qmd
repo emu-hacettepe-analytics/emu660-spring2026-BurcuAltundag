@@ -467,6 +467,21 @@ ggplot(
 ```
 The analysis indicates that accidents during peak traffic hours are more strongly associated with certain environmental factors such as intersections and traffic signals. Increased traffic interactions during commuting periods may increase the likelihood of conflicts between vehicles. Therefore, potential improvement strategies may include optimizing traffic signal timing, redesigning intersections, and implementing traffic flow management during peak hours.
 
+## 3.1.9 Overall Findings from US Exploratory Analysis
+
+The exploratory analysis of US traffic accident data revealed several important patterns related to accident occurrence and severity.
+
+First, accident frequencies showed an increasing trend between 2016 and 2022. Although part of this increase can be explained by the expansion of dataset coverage, the rise in accident counts was considerably larger than the increase in the number of represented cities. While city coverage increased by approximately 50%, accident records increased by nearly four times. This indicates that dataset expansion alone cannot fully explain the observed increase.
+
+Second, accident occurrence was not uniformly distributed across time. Variations across weekdays and hours of the day suggest that traffic intensity and commuting behavior may influence accident frequency.
+
+Third, accident frequencies were concentrated in specific cities, indicating that urban areas with larger populations and heavier traffic volumes tend to experience more accidents.
+
+In addition, accident severity appeared to vary across different environmental and weather conditions. Environmental factors such as intersections, traffic signals, and crossings may also contribute to accident occurrence due to increased traffic interactions.
+
+The peak-hour analysis further indicated that environmental conditions become more important during commuting periods. Factors such as intersections and traffic signals appear more frequently during high-traffic periods, suggesting that increased vehicle interactions may elevate accident risk. Potential improvement strategies may include optimized traffic signal timing, intersection redesign, and traffic flow management during peak hours.
+
+Overall, the results suggest that traffic accidents are influenced by multiple factors including temporal patterns, geographical characteristics, traffic density, environmental conditions, and dataset coverage.
 ## 3.2 Trend Analysis
 
 This section will compare traffic accident patterns between the US and Türkiye.
