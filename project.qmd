@@ -426,6 +426,47 @@ ggplot(environmental_factors, aes(x = reorder(Factor, Count), y = Count)) +
 
 The results indicate that accidents are associated with several environmental factors such as intersections, traffic signals, and crossings. These factors may contribute to accident occurrence due to increased traffic interactions and driving complexity.
 
+## Peak Hour Environmental Factors
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+
+peak_hours <- us_accidents_clean %>%
+  filter(Hour %in% c(7,8,9,16,17,18,19))
+
+peak_environment <- peak_hours %>%
+  summarise(
+    Junction = sum(Junction, na.rm = TRUE),
+    Traffic_Signal = sum(Traffic_Signal, na.rm = TRUE),
+    Crossing = sum(Crossing, na.rm = TRUE),
+    Railway = sum(Railway, na.rm = TRUE),
+    Stop = sum(Stop, na.rm = TRUE)
+  ) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Factor",
+    values_to = "Count"
+  )
+
+ggplot(
+  peak_environment,
+  aes(
+    x = reorder(Factor, Count),
+    y = Count
+  )
+) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Environmental Factors During Peak Traffic Hours",
+    x = "Factor",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+```
+The analysis indicates that accidents during peak traffic hours are more strongly associated with certain environmental factors such as intersections and traffic signals. Increased traffic interactions during commuting periods may increase the likelihood of conflicts between vehicles. Therefore, potential improvement strategies may include optimizing traffic signal timing, redesigning intersections, and implementing traffic flow management during peak hours.
+
 ## 3.2 Trend Analysis
 
 This section will compare traffic accident patterns between the US and Türkiye.
