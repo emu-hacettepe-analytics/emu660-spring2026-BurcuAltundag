@@ -368,11 +368,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#accident-severity-distribution-in-the-us" id="toc-accident-severity-distribution-in-the-us" class="nav-link" data-scroll-target="#accident-severity-distribution-in-the-us">3.1.5 Accident Severity Distribution in the US</a></li>
   <li><a href="#accident-severity-by-weather-condition-in-the-us" id="toc-accident-severity-by-weather-condition-in-the-us" class="nav-link" data-scroll-target="#accident-severity-by-weather-condition-in-the-us">3.1.6 Accident Severity by Weather Condition in the US</a></li>
   <li><a href="#environmental-factors-associated-with-accidents-in-the-us" id="toc-environmental-factors-associated-with-accidents-in-the-us" class="nav-link" data-scroll-target="#environmental-factors-associated-with-accidents-in-the-us">3.1.7 Environmental Factors Associated with Accidents in the US</a></li>
+  <li><a href="#peak-hour-environmental-factors-in-the-us" id="toc-peak-hour-environmental-factors-in-the-us" class="nav-link" data-scroll-target="#peak-hour-environmental-factors-in-the-us">3.1.8 Peak Hour Environmental Factors in the US</a></li>
   </ul></li>
-  <li><a href="#trend-analysis" id="toc-trend-analysis" class="nav-link" data-scroll-target="#trend-analysis">3.2 Trend Analysis</a></li>
+  <li><a href="#overall-findings-from-us-exploratory-analysis" id="toc-overall-findings-from-us-exploratory-analysis" class="nav-link" data-scroll-target="#overall-findings-from-us-exploratory-analysis">3.1.9 Overall Findings from US Exploratory Analysis</a>
+  <ul class="collapse">
+  <li><a href="#yearly-accident-trend-in-türkiye" id="toc-yearly-accident-trend-in-türkiye" class="nav-link" data-scroll-target="#yearly-accident-trend-in-türkiye">3.1.10 Yearly Accident Trend in Türkiye</a></li>
+  <li><a href="#traffic-accident-heatmap-by-province-and-year-in-türkiye" id="toc-traffic-accident-heatmap-by-province-and-year-in-türkiye" class="nav-link" data-scroll-target="#traffic-accident-heatmap-by-province-and-year-in-türkiye">3.1.11 Traffic Accident Heatmap by Province and Year in Türkiye</a></li>
+  <li><a href="#registered-vehicles-vs-traffic-accidents-in-türkiye" id="toc-registered-vehicles-vs-traffic-accidents-in-türkiye" class="nav-link" data-scroll-target="#registered-vehicles-vs-traffic-accidents-in-türkiye">3.1.12 Registered Vehicles vs Traffic Accidents in Türkiye</a></li>
+  <li><a href="#traffic-accidents-by-weekday-in-türkiye" id="toc-traffic-accidents-by-weekday-in-türkiye" class="nav-link" data-scroll-target="#traffic-accidents-by-weekday-in-türkiye">3.1.13 Traffic Accidents by Weekday in Türkiye</a></li>
+  <li><a href="#overall-findings-from-türkiye-exploratory-analysis" id="toc-overall-findings-from-türkiye-exploratory-analysis" class="nav-link" data-scroll-target="#overall-findings-from-türkiye-exploratory-analysis">3.1.14 Overall Findings from Türkiye Exploratory Analysis</a></li>
+  </ul></li>
+  <li><a href="#trend-analysis" id="toc-trend-analysis" class="nav-link" data-scroll-target="#trend-analysis">3.2 Trend Analysis</a>
+  <ul class="collapse">
+  <li><a href="#yearly-accident-trend-in-türkiye-1" id="toc-yearly-accident-trend-in-türkiye-1" class="nav-link" data-scroll-target="#yearly-accident-trend-in-türkiye-1">3.2.1 Yearly Accident Trend in Türkiye</a></li>
+  <li><a href="#weekday-distribution-us-vs-türkiye" id="toc-weekday-distribution-us-vs-türkiye" class="nav-link" data-scroll-target="#weekday-distribution-us-vs-türkiye">3.2.2 Weekday Distribution: US vs Türkiye</a></li>
+  <li><a href="#summary-comparison-of-us-and-türkiye" id="toc-summary-comparison-of-us-and-türkiye" class="nav-link" data-scroll-target="#summary-comparison-of-us-and-türkiye">3.2.3 Summary Comparison of US and Türkiye</a></li>
+  <li><a href="#overall-findings-from-trend-analysis" id="toc-overall-findings-from-trend-analysis" class="nav-link" data-scroll-target="#overall-findings-from-trend-analysis">3.2.4 Overall Findings from Trend Analysis</a></li>
+  </ul></li>
   <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting">3.3 Model Fitting</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">3.4 Results</a></li>
   </ul></li>
+  <li><a href="#results-and-key-takeaways" id="toc-results-and-key-takeaways" class="nav-link" data-scroll-target="#results-and-key-takeaways">4. Results and Key Takeaways</a></li>
   </ul>
 </nav>
 </nav>
@@ -961,21 +977,636 @@ New names:
 </div>
 <p>The results indicate that accidents are associated with several environmental factors such as intersections, traffic signals, and crossings. These factors may contribute to accident occurrence due to increased traffic interactions and driving complexity.</p>
 </section>
+<section id="peak-hour-environmental-factors-in-the-us" class="level3">
+<h3 class="anchored" data-anchor-id="peak-hour-environmental-factors-in-the-us">3.1.8 Peak Hour Environmental Factors in the US</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>peak_hours <span class="ot">&lt;-</span> us_accidents <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Hour =</span> <span class="fu">hour</span>(Start_Time)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Hour <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">19</span>))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>peak_environment <span class="ot">&lt;-</span> peak_hours <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Junction =</span> <span class="fu">sum</span>(Junction, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Traffic_Signal =</span> <span class="fu">sum</span>(Traffic_Signal, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Crossing =</span> <span class="fu">sum</span>(Crossing, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Railway =</span> <span class="fu">sum</span>(Railway, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Stop =</span> <span class="fu">sum</span>(Stop, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Give_Way =</span> <span class="fu">sum</span>(Give_Way, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Factor"</span>,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Count"</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  peak_environment,</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">reorder</span>(Factor, Count),</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Count</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Environmental Factors During Peak Traffic Hours"</span>,</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Environmental Factor"</span>,</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The analysis indicates that traffic signals and intersections appear more frequently in accident records during peak traffic hours. Increased vehicle interactions and traffic density during commuting periods may contribute to higher accident occurrence in these areas. Crossings also appear as an important factor, whereas railway crossings and give-way locations appear less frequently. These findings suggest that traffic signal optimization, intersection redesign, and traffic flow management strategies during peak hours may help improve traffic safety.</p>
+</section>
+</section>
+<section id="overall-findings-from-us-exploratory-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="overall-findings-from-us-exploratory-analysis">3.1.9 Overall Findings from US Exploratory Analysis</h2>
+<p>The exploratory analysis of US traffic accident data revealed several important patterns related to accident occurrence and severity.</p>
+<p>First, accident frequencies showed an increasing trend between 2016 and 2022. Although part of this increase can be explained by the expansion of dataset coverage, the rise in accident counts was considerably larger than the increase in the number of represented cities. While city coverage increased by approximately 50%, accident records increased by nearly four times. This indicates that dataset expansion alone cannot fully explain the observed increase.</p>
+<p>Second, accident occurrence was not uniformly distributed across time. Variations across weekdays and hours of the day suggest that traffic intensity and commuting behavior may influence accident frequency.</p>
+<p>Third, accident frequencies were concentrated in specific cities, indicating that urban areas with larger populations and heavier traffic volumes tend to experience more accidents.</p>
+<p>In addition, accident severity appeared to vary across different environmental and weather conditions. Environmental factors such as intersections, traffic signals, and crossings may also contribute to accident occurrence due to increased traffic interactions.</p>
+<p>The peak-hour analysis further indicated that environmental conditions become more important during commuting periods. Factors such as intersections and traffic signals appear more frequently during high-traffic periods, suggesting that increased vehicle interactions may elevate accident risk. Potential improvement strategies may include optimized traffic signal timing, intersection redesign, and traffic flow management during peak hours.</p>
+<p>Overall, the results suggest that traffic accidents are influenced by multiple factors including temporal patterns, geographical characteristics, traffic density, environmental conditions, and dataset coverage.</p>
+<section id="yearly-accident-trend-in-türkiye" class="level3">
+<h3 class="anchored" data-anchor-id="yearly-accident-trend-in-türkiye">3.1.10 Yearly Accident Trend in Türkiye</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'scales'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    discard</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:readr':
+
+    col_factor</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>turkey_yearly <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/turkey_raw"</span>,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"^accidents_[0-9]{4}</span><span class="sc">\\</span><span class="st">.xlsx$"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="cf">function</span>(file) {</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    temp <span class="sc">%&gt;%</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(.[[<span class="dv">1</span>]] <span class="sc">==</span> <span class="st">"Türkiye"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">transmute</span>(</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">Year =</span> <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(<span class="fu">basename</span>(file), <span class="st">"[0-9]{4}"</span>)),</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">Total_Accidents =</span> <span class="fu">parse_number</span>(<span class="fu">as.character</span>(.[[<span class="dv">3</span>]]))</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  })</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...6`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...7`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...6`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...7`</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  turkey_yearly,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Year,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Total_Accidents,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Total Accidents"</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_color_manual</span>(</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Total Accidents"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> turkey_yearly<span class="sc">$</span>Year</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_y_continuous</span>(</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>),</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> comma</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Yearly Trend of Traffic Accidents in Türkiye"</span>,</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"Number of Accidents"</span>,</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"Legend"</span></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph shows the yearly change in total traffic accidents in Türkiye. The y-axis starts from zero to avoid a misleading visual impression and to show that the decrease in 2020 represents a decline, not the absence of accidents.</p>
+</section>
+<section id="traffic-accident-heatmap-by-province-and-year-in-türkiye" class="level3">
+<h3 class="anchored" data-anchor-id="traffic-accident-heatmap-by-province-and-year-in-türkiye">3.1.11 Traffic Accident Heatmap by Province and Year in Türkiye</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>turkey_heat <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/turkey_raw"</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern=</span><span class="st">"^accidents_[0-9]{4}</span><span class="sc">\\</span><span class="st">.xlsx$"</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names=</span><span class="cn">TRUE</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dfr</span>(<span class="cf">function</span>(file){</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file)</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">%&gt;%</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="st">`</span><span class="at">Trafik Kaza Gösterge</span><span class="st">`</span> <span class="sc">%in%</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"Türkiye"</span>,<span class="st">"Kaza Ölüm Durum"</span>)</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="fu">transmute</span>(</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="at">Year=</span><span class="fu">as.numeric</span>(</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract</span>(</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="fu">basename</span>(file),</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a><span class="st">"[0-9]{4}"</span></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>),</span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a><span class="at">Province=</span><span class="st">`</span><span class="at">Trafik Kaza Gösterge</span><span class="st">`</span>,</span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="at">Accidents=</span><span class="fu">parse_number</span>(</span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(</span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Toplam Kaza Sayısı</span><span class="st">`</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...6`
+• `Ölü Sayısı` -&gt; `Ölü Sayısı...7`</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>top10 <span class="ot">&lt;-</span> turkey_heat <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Province) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="at">Total=</span><span class="fu">sum</span>(Accidents)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>)<span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(Total)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>heat_final <span class="ot">&lt;-</span> turkey_heat <span class="sc">%&gt;%</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>Province <span class="sc">%in%</span> top10<span class="sc">$</span>Province</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>heat_final,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="fu">aes</span>(</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="at">x=</span><span class="fu">factor</span>(Year),</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="at">y=</span><span class="fu">reorder</span>(Province,Accidents),</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="at">fill=</span>Accidents</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_tile</span>()<span class="sc">+</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a><span class="at">title=</span><span class="st">"Traffic Accident Intensity by Province and Year in Türkiye"</span>,</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="at">x=</span><span class="st">"Year"</span>,</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="at">y=</span><span class="st">"Province"</span>,</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a><span class="at">fill=</span><span class="st">"Accidents"</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The heatmap illustrates how accident intensity changes across provinces and years and helps identify provinces with consistently high accident frequencies.</p>
+</section>
+<section id="registered-vehicles-vs-traffic-accidents-in-türkiye" class="level3">
+<h3 class="anchored" data-anchor-id="registered-vehicles-vs-traffic-accidents-in-türkiye">3.1.12 Registered Vehicles vs Traffic Accidents in Türkiye</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>turkey_province <span class="ot">&lt;-</span> turkey_accidents <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="st">`</span><span class="at">Trafik Kaza Gösterge</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Türkiye"</span>, <span class="st">"Kaza Ölüm Durum"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Province =</span> <span class="st">`</span><span class="at">Trafik Kaza Gösterge</span><span class="st">`</span>,</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Registered_Vehicles =</span> readr<span class="sc">::</span><span class="fu">parse_number</span>(<span class="fu">as.character</span>(.[[<span class="dv">2</span>]])),</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Total_Accidents =</span> readr<span class="sc">::</span><span class="fu">parse_number</span>(<span class="fu">as.character</span>(.[[<span class="dv">3</span>]]))</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Registered_Vehicles),</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Total_Accidents)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  Total_Accidents <span class="sc">~</span> Registered_Vehicles,</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> turkey_province</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>turkey_province <span class="ot">&lt;-</span> turkey_province <span class="sc">%&gt;%</span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Predicted =</span> <span class="fu">predict</span>(model),</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Residual =</span> Total_Accidents <span class="sc">-</span> Predicted</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>outliers <span class="ot">&lt;-</span> turkey_province <span class="sc">%&gt;%</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(Residual))) <span class="sc">%&gt;%</span></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>turkey_province <span class="ot">&lt;-</span> turkey_province <span class="sc">%&gt;%</span></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>      Province <span class="sc">%in%</span> outliers<span class="sc">$</span>Province,</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>      <span class="st">"High Deviation Provinces"</span>,</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other Provinces"</span></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>  turkey_province,</span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Registered_Vehicles,</span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Total_Accidents,</span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> Group</span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(</span>
+<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb40-50"><a href="#cb40-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb40-52"><a href="#cb40-52" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb40-53"><a href="#cb40-53" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_color_manual</span>(</span>
+<span id="cb40-54"><a href="#cb40-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb40-55"><a href="#cb40-55" aria-hidden="true" tabindex="-1"></a>    <span class="st">"High Deviation Provinces"</span> <span class="ot">=</span> <span class="st">"red"</span>,</span>
+<span id="cb40-56"><a href="#cb40-56" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Other Provinces"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span></span>
+<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Registered Vehicles vs Traffic Accidents in Türkiye"</span>,</span>
+<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Registered Vehicles"</span>,</span>
+<span id="cb40-62"><a href="#cb40-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"Number of Accidents"</span>,</span>
+<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"Legend"</span></span>
+<span id="cb40-64"><a href="#cb40-64" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph identifies provinces that deviate from the expected relationship between registered vehicles and accident counts. Provinces highlighted in red represent locations where accident frequencies differ considerably from the overall trend.</p>
+</section>
+<section id="traffic-accidents-by-weekday-in-türkiye" class="level3">
+<h3 class="anchored" data-anchor-id="traffic-accidents-by-weekday-in-türkiye">3.1.13 Traffic Accidents by Weekday in Türkiye</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>turkey_weekday_clean <span class="ot">&lt;-</span> turkey_weekday <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="st">`</span><span class="at">Trafik Kaza Gösterge</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Toplam"</span>, <span class="st">"Gün"</span>, <span class="st">"Kaza Ölüm Durum"</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Weekday =</span> <span class="st">`</span><span class="at">Trafik Kaza Gösterge</span><span class="st">`</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Fatal_Injury_Accidents =</span> <span class="fu">parse_number</span>(<span class="fu">as.character</span>(.[[<span class="dv">2</span>]])),</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Fatalities =</span> <span class="fu">parse_number</span>(<span class="fu">as.character</span>(.[[<span class="dv">3</span>]])),</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Injuries =</span> <span class="fu">parse_number</span>(<span class="fu">as.character</span>(.[[<span class="dv">6</span>]]))</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  turkey_weekday_clean,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">reorder</span>(Weekday, Fatal_Injury_Accidents),</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Fatal_Injury_Accidents,</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Fatal/Injury Accidents"</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Fatal/Injury Accidents"</span> <span class="ot">=</span> <span class="st">"purple"</span>)) <span class="sc">+</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Fatal/Injury Traffic Accidents by Weekday in Türkiye"</span>,</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Weekday"</span>,</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"Number of Fatal/Injury Accidents"</span>,</span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="st">"Legend"</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The weekday analysis indicates that fatal and injury traffic accidents are not evenly distributed across the days of the week. Friday has the highest number of accidents, whereas Sunday shows the lowest accident frequency. Higher accident counts on Fridays may be associated with increased traffic density caused by commuting activities and the beginning of weekend travel. In contrast, lower accident frequencies on Sundays may be explained by reduced traffic volume and fewer work-related trips.</p>
+<p>In addition, accident frequencies across weekdays appear relatively similar, suggesting that traffic accidents occur consistently throughout the week rather than being concentrated on a single day. However, the relatively higher accident frequency on Fridays indicates that certain periods may involve increased traffic risk and therefore require additional traffic monitoring and preventive measures. Traffic authorities may consider increasing traffic monitoring and implementing preventive measures during high-risk days such as Fridays.</p>
+</section>
+<section id="overall-findings-from-türkiye-exploratory-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="overall-findings-from-türkiye-exploratory-analysis">3.1.14 Overall Findings from Türkiye Exploratory Analysis</h3>
+<p>The exploratory analysis of Türkiye traffic accident data reveals several important patterns. First, the yearly accident trend shows how total traffic accidents changed over time. This helps evaluate whether accident frequency increased or decreased across the selected years.</p>
+<p>Second, accident records are concentrated in specific provinces. Provinces with higher population density, vehicle ownership, and traffic volume tend to show higher accident frequencies.</p>
+<p>The relationship between registered vehicles and traffic accidents suggests that provinces with more registered vehicles generally experience more accidents. This indicates that traffic exposure is an important factor in accident occurrence.</p>
+<p>The weekday analysis shows that fatal and injury accidents are not evenly distributed across days of the week. Differences between weekdays may be related to commuting patterns, work-related travel, and changes in traffic volume.</p>
+<p>Overall, the Türkiye analysis suggests that traffic accidents are affected by multiple factors such as vehicle density, provincial traffic volume, travel behavior, and temporal patterns. Possible improvement strategies include improving road infrastructure in high-risk provinces, monitoring risky weekdays, strengthening traffic safety awareness, and developing targeted traffic control policies.</p>
+</section>
 </section>
 <section id="trend-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="trend-analysis">3.2 Trend Analysis</h2>
-<p>This section will compare traffic accident patterns between the US and Türkiye.</p>
+<section id="yearly-accident-trend-in-türkiye-1" class="level3">
+<h3 class="anchored" data-anchor-id="yearly-accident-trend-in-türkiye-1">3.2.1 Yearly Accident Trend in Türkiye</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  turkey_yearly,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Year,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Total_Accidents</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_area</span>(</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill=</span><span class="st">"skyblue"</span>,</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha=</span><span class="fl">0.5</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">color=</span><span class="st">"blue"</span>,</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">linewidth=</span><span class="fl">1.2</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">color=</span><span class="st">"darkblue"</span>,</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">size=</span><span class="dv">3</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_y_continuous</span>(</span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> comma</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(</span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks=</span><span class="dv">2018</span><span class="sc">:</span><span class="dv">2024</span></span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a><span class="at">title=</span><span class="st">"Yearly Traffic Accident Trend in Türkiye"</span>,</span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a><span class="at">x=</span><span class="st">"Year"</span>,</span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a><span class="at">y=</span><span class="st">"Number of Accidents"</span></span>
+<span id="cb43-32"><a href="#cb43-32" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb43-33"><a href="#cb43-33" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph illustrates yearly changes in traffic accident frequency in Türkiye. A noticeable decrease appears around 2020, followed by a continuous increase in later years.</p>
+<hr>
+</section>
+<section id="weekday-distribution-us-vs-türkiye" class="level3">
+<h3 class="anchored" data-anchor-id="weekday-distribution-us-vs-türkiye">3.2.2 Weekday Distribution: US vs Türkiye</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>us_weekday_compare <span class="ot">&lt;-</span> us_accidents_clean <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(Weekday) <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="at">Count=</span>n</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="at">Country=</span><span class="st">"US"</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>turkey_weekday_compare <span class="ot">&lt;-</span> turkey_weekday_clean <span class="sc">%&gt;%</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="at">Country=</span><span class="st">"Türkiye"</span>,</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="at">Count=</span>Fatal_Injury_Accidents</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>Weekday,</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>Count,</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>Country</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>weekday_compare <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>us_weekday_compare,</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>turkey_weekday_compare</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="at">Percent=</span>Count<span class="sc">/</span><span class="fu">sum</span>(Count)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ungroup</span>()</span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a>weekday_compare,</span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a><span class="fu">aes</span>(</span>
+<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a><span class="at">x=</span>Weekday,</span>
+<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a><span class="at">y=</span>Percent,</span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a><span class="at">fill=</span>Country</span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_col</span>(</span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a><span class="at">position=</span><span class="st">"dodge"</span></span>
+<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_fill_manual</span>(</span>
+<span id="cb44-44"><a href="#cb44-44" aria-hidden="true" tabindex="-1"></a><span class="at">values=</span><span class="fu">c</span>(</span>
+<span id="cb44-45"><a href="#cb44-45" aria-hidden="true" tabindex="-1"></a><span class="st">"US"</span><span class="ot">=</span><span class="st">"turquoise3"</span>,</span>
+<span id="cb44-46"><a href="#cb44-46" aria-hidden="true" tabindex="-1"></a><span class="st">"Türkiye"</span><span class="ot">=</span><span class="st">"salmon"</span></span>
+<span id="cb44-47"><a href="#cb44-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-48"><a href="#cb44-48" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb44-50"><a href="#cb44-50" aria-hidden="true" tabindex="-1"></a><span class="at">title=</span><span class="st">"Weekday Accident Distribution: US vs Türkiye"</span>,</span>
+<span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a><span class="at">x=</span><span class="st">"Weekday"</span>,</span>
+<span id="cb44-52"><a href="#cb44-52" aria-hidden="true" tabindex="-1"></a><span class="at">y=</span><span class="st">"Percentage of Accidents (%)"</span>,</span>
+<span id="cb44-53"><a href="#cb44-53" aria-hidden="true" tabindex="-1"></a><span class="at">fill=</span><span class="st">"Country"</span></span>
+<span id="cb44-54"><a href="#cb44-54" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb44-55"><a href="#cb44-55" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph compares accident distributions between the US and Türkiye using percentages rather than raw counts.</p>
+<hr>
+</section>
+<section id="summary-comparison-of-us-and-türkiye" class="level3">
+<h3 class="anchored" data-anchor-id="summary-comparison-of-us-and-türkiye">3.2.3 Summary Comparison of US and Türkiye</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Analysis Dimension</th>
+<th style="text-align: right;">US Dataset</th>
+<th style="text-align: right;">Türkiye Dataset</th>
+<th>Main Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yearly Trend</td>
+<td style="text-align: right;">✓</td>
+<td style="text-align: right;">✓</td>
+<td>Accident frequencies change over time</td>
+</tr>
+<tr class="even">
+<td>Weekday Pattern</td>
+<td style="text-align: right;">✓</td>
+<td style="text-align: right;">✓</td>
+<td>Accidents vary across weekdays</td>
+</tr>
+<tr class="odd">
+<td>Hourly Pattern</td>
+<td style="text-align: right;">✓</td>
+<td style="text-align: right;">✗</td>
+<td>Peak-hour analyses possible only for US</td>
+</tr>
+<tr class="even">
+<td>Weather Conditions</td>
+<td style="text-align: right;">✓</td>
+<td style="text-align: right;">✗</td>
+<td>Weather effects analyzed only in US</td>
+</tr>
+<tr class="odd">
+<td>Environmental Factors</td>
+<td style="text-align: right;">✓</td>
+<td style="text-align: right;">✗</td>
+<td>Traffic signals/intersections available only for US</td>
+</tr>
+<tr class="even">
+<td>Vehicle Ownership</td>
+<td style="text-align: right;">✗</td>
+<td style="text-align: right;">✓</td>
+<td>Positive relationship with accidents</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="overall-findings-from-trend-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="overall-findings-from-trend-analysis">3.2.4 Overall Findings from Trend Analysis</h3>
+<p>The trend analysis reveals that traffic accident patterns vary over time and across different conditions. The yearly analysis in Türkiye demonstrated noticeable changes across years, including a decrease around 2020 followed by an increasing trend in subsequent years.</p>
+<p>The weekday comparison showed that accident frequencies are not equally distributed throughout the week in both countries. These variations may be associated with commuting behavior, traffic density, and mobility patterns.</p>
+<p>Although the two datasets differ in content and level of detail, both analyses suggest that traffic accidents are influenced by temporal factors rather than occurring randomly. Understanding these trends may support the development of more effective traffic safety policies and prevention strategies.</p>
+</section>
 </section>
 <section id="model-fitting" class="level2">
 <h2 class="anchored" data-anchor-id="model-fitting">3.3 Model Fitting</h2>
-<p>This section will include a simple model to investigate factors associated with accident severity.</p>
+<p>To further investigate the relationship between registered vehicles and traffic accidents in Türkiye, a simple linear regression model was applied. The objective of the model was to examine whether changes in the number of registered vehicles are associated with changes in accident frequencies.</p>
+<p>The regression model can be expressed as:</p>
+<p>[ Y=_0+_1X+ ]</p>
+<p>where:</p>
+<ul>
+<li>(Y) = Number of traffic accidents<br>
+</li>
+<li>(X) = Number of registered vehicles<br>
+</li>
+<li>(_0) = Intercept<br>
+</li>
+<li>(_1) = Regression coefficient<br>
+</li>
+<li>() = Random error term</li>
+</ul>
+<p>The fitted model indicated a positive relationship between registered vehicles and accident frequencies. In general, provinces with larger numbers of registered vehicles tended to experience more traffic accidents.</p>
+<p>However, several provinces deviated considerably from the fitted regression line. These observations suggest that vehicle ownership alone cannot completely explain accident frequencies. Additional factors such as population density, infrastructure quality, traffic conditions, and driving behavior may also contribute to accident occurrence.</p>
+<p>Overall, the regression model provides useful insights into accident patterns and highlights the importance of considering multiple variables when explaining traffic accidents.</p>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">3.4 Results</h2>
-<p>The results section will summarize the main findings from the exploratory analysis, trend comparison, and model fitting.</p>
-
-
+<p>The analysis provided several important findings regarding traffic accident patterns in both the US and Türkiye datasets.</p>
+<p>First, accident frequencies showed temporal variations across years, weekdays, and traffic conditions. The yearly analyses demonstrated that accident occurrences changed over time rather than remaining constant.</p>
+<p>Second, environmental and traffic-related factors appeared to influence accident occurrence. The peak-hour analysis indicated that traffic signals and intersections were frequently associated with accidents, suggesting that increased vehicle interaction may contribute to higher accident risks.</p>
+<p>Third, the Türkiye analysis revealed a positive relationship between registered vehicles and accident frequencies. Provinces with larger vehicle populations generally experienced higher numbers of accidents.</p>
+<p>However, the presence of several provinces deviating from the expected regression trend indicated that vehicle ownership alone cannot fully explain accident occurrence. Additional factors such as infrastructure quality, population density, traffic management practices, and driver behavior may also affect accident frequencies.</p>
+<p>Overall, the results suggest that traffic accidents are affected by multiple interacting factors rather than a single variable.</p>
 </section>
+</section>
+<section id="results-and-key-takeaways" class="level1">
+<h1>4. Results and Key Takeaways</h1>
+<p>The comparative analysis of traffic accident data from the US and Türkiye provided useful insights into accident patterns and potential contributing factors.</p>
+<p>The findings showed that accident occurrence is influenced by temporal characteristics such as years, weekdays, and commuting patterns. Traffic accidents were not uniformly distributed over time, indicating that mobility behavior and traffic intensity play important roles.</p>
+<p>The analyses also demonstrated that environmental conditions and traffic characteristics can contribute to accident risk. Traffic signals, intersections, and peak-hour conditions appeared to be associated with higher accident frequencies.</p>
+<p>Furthermore, the relationship between vehicle ownership and accident frequency suggested that increased traffic exposure may increase accident risk. However, deviations from expected trends highlighted that traffic accidents are complex events influenced by many additional variables.</p>
+<p>Based on these findings, several practical recommendations can be suggested:</p>
+<ul>
+<li>Increase traffic monitoring during high-risk periods.</li>
+<li>Improve traffic signal optimization and intersection design.</li>
+<li>Strengthen traffic safety awareness programs.</li>
+<li>Improve road infrastructure in high-risk areas.</li>
+<li>Develop data-driven traffic management policies.</li>
+</ul>
+<p>Overall, understanding accident patterns through data analysis can support more effective decision-making and contribute to improved traffic safety.</p>
+
+
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
