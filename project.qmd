@@ -426,7 +426,7 @@ ggplot(environmental_factors, aes(x = reorder(Factor, Count), y = Count)) +
 
 The results indicate that accidents are associated with several environmental factors such as intersections, traffic signals, and crossings. These factors may contribute to accident occurrence due to increased traffic interactions and driving complexity.
 
-## Peak Hour Environmental Factors
+### 3.1.8 Peak Hour Environmental Factors
 
 ```{r}
 #| code-fold: true
