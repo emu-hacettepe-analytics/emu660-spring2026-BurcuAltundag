@@ -287,7 +287,7 @@ ggplot(us_weekday, aes(x = Weekday, y = n)) +
   theme_minimal()
 ```
 
-This graph investigates whether accidents are concentrated on specific weekdays.
+The graph shows that accident frequencies differ across weekdays. Higher accident frequencies during weekdays may be associated with commuting patterns and increased traffic volume, whereas lower frequencies during weekends may reflect reduced work-related travel activity.
 
 ### 3.1.3 Traffic Accidents by Hour of Day in the US
 
@@ -310,7 +310,7 @@ ggplot(us_hourly, aes(x = Hour, y = n)) +
   theme_minimal()
 ```
 
-Accident frequency may vary throughout the day due to traffic intensity and commuting periods.
+The hourly distribution indicates that accident frequencies are not evenly distributed throughout the day. Peaks during morning and evening hours may be associated with commuting periods when traffic density is typically higher.
 
 ### 3.1.4 Top Cities with Highest Accident Frequency in the US
 
@@ -333,7 +333,7 @@ ggplot(top_cities, aes(x = reorder(City, n), y = n)) +
   theme_minimal()
 ```
 
-This graph identifies the cities where accidents are most concentrated in the selected US sample.
+The results indicate that accident occurrences are concentrated in specific cities. Larger metropolitan areas with higher population density and traffic volumes are expected to exhibit greater accident frequencies.
 
 ### 3.1.5 Accident Severity Distribution in the US
 
@@ -354,7 +354,7 @@ ggplot(severity_distribution, aes(x = factor(Severity), y = n)) +
   theme_minimal()
 ```
 
-This analysis examines how accident records are distributed across severity levels.
+The severity distribution demonstrates that accident records are concentrated in certain severity levels. Severe accidents occur less frequently, while moderate levels appear more common within the dataset.
 
 ### 3.1.6 Accident Severity by Weather Condition in the US
 
@@ -390,7 +390,7 @@ ggplot(
   theme_minimal()
 ```
 
-Weather conditions may influence accident severity levels.
+The analysis suggests that weather conditions may influence accident severity. Different weather environments can affect road visibility and driving conditions, potentially leading to variations in accident outcomes.
 
 ### 3.1.7 Environmental Factors Associated with Accidents in the US
 
@@ -424,7 +424,7 @@ ggplot(environmental_factors, aes(x = reorder(Factor, Count), y = Count)) +
   theme_minimal()
 ```
 
-The dataset does not directly report accident causes. Therefore, environmental variables are used as proxy indicators for accident-related conditions.
+The results indicate that accidents are associated with several environmental factors such as intersections, traffic signals, and crossings. These factors may contribute to accident occurrence due to increased traffic interactions and driving complexity.
 
 ## 3.2 Trend Analysis
 

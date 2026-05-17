@@ -2,65 +2,65 @@
   {
     "objectID": "project.html",
     "href": "project.html",
-    "title": "Project X",
+    "title": "Project Title",
     "section": "",
-    "text": "Welcome to my/our project page.\nKeep an eye on this space to stay updated with my project activities.\n(The titles below are provided as examples; please feel free to adjust them as necessary.)"
+    "text": "Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data\nAuthor: Burcu Altundağ\nCourse: EMU660 – Analytical Methods for Decision Making\nSemester: Spring 2026"
   },
   {
     "objectID": "project.html#data-source",
     "href": "project.html#data-source",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "2.1 Data Source",
-    "text": "2.1 Data Source\nxxxxxx"
+    "text": "2.1 Data Source\nThis project uses two publicly available traffic accident datasets: one from the United States and one from Türkiye. The purpose of using these datasets together is to analyze detailed accident patterns using the US dataset while establishing a comparative connection with Türkiye.\nThe US Accidents dataset was obtained from Kaggle and covers traffic accidents across 49 states of the United States between February 2016 and March 2023. The dataset contains approximately 7.7 million accident records collected from multiple traffic information sources such as transportation departments, law enforcement agencies, traffic cameras, and traffic sensors.\nThe Türkiye traffic accident data were obtained from the Turkish Statistical Institute (TÜİK). The Türkiye data consist of yearly traffic accident statistics downloaded separately and include province-level accident information and weekday-based accident summaries.\nData sources:\n\nUS Accidents Dataset: https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents\nTÜİK Traffic Accident Statistics: https://data.tuik.gov.tr/\n\n\n\nShow code\nlibrary(tidyverse)\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.1     ✔ readr     2.2.0\n✔ forcats   1.0.1     ✔ stringr   1.6.0\n✔ ggplot2   4.0.2     ✔ tibble    3.3.1\n✔ lubridate 1.9.5     ✔ tidyr     1.3.2\n✔ purrr     1.2.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nShow code\nlibrary(readr)\nlibrary(readxl)\nlibrary(lubridate)\nlibrary(purrr)\n\nus_accidents &lt;- read_csv(\n  \"data/US_Accidents_March23.csv\",\n  n_max = 100000,\n  show_col_types = FALSE\n)\n\naccident_files &lt;- list.files(\n  \"data/turkey_raw\",\n  pattern = \"^accidents_.*\\\\.xlsx$\",\n  full.names = TRUE\n)\n\nweekday_files &lt;- list.files(\n  \"data/turkey_raw\",\n  pattern = \"^weekday_accidents_.*\\\\.xlsx$\",\n  full.names = TRUE\n)"
   },
   {
     "objectID": "project.html#general-information-about-data",
     "href": "project.html#general-information-about-data",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "2.2 General Information About Data",
-    "text": "2.2 General Information About Data\nxxxxxx"
+    "text": "2.2 General Information About Data\nThe US dataset contains detailed accident-level information where each row represents a single accident event. The dataset includes variables related to accident severity, weather conditions, geographical information, and temporal characteristics.\nSome important variables used in this study are:\n\n\n\nVariable\nDescription\n\n\n\n\nSeverity\nSeverity level of the accident\n\n\nStart_Time\nDate and time of accident occurrence\n\n\nWeather_Condition\nWeather condition during accident\n\n\nTemperature(F)\nTemperature at the time of accident\n\n\nVisibility(mi)\nVisibility level\n\n\nCity\nAccident city\n\n\nState\nAccident state\n\n\n\nThe Türkiye dataset is more aggregated and focuses on yearly traffic statistics. It is mainly used to establish a comparison with US traffic patterns.\n\n\nShow code\ndim(us_accidents)\n\n\n[1] 100000     46\n\n\nShow code\nprint(accident_files)\n\n\n[1] \"data/turkey_raw/accidents_2018.xlsx\" \"data/turkey_raw/accidents_2019.xlsx\"\n[3] \"data/turkey_raw/accidents_2020.xlsx\" \"data/turkey_raw/accidents_2021.xlsx\"\n[5] \"data/turkey_raw/accidents_2022.xlsx\" \"data/turkey_raw/accidents_2023.xlsx\"\n[7] \"data/turkey_raw/accidents_2024.xlsx\"\n\n\nShow code\nprint(weekday_files)\n\n\n[1] \"data/turkey_raw/weekday_accidents_2018.xlsx\"\n[2] \"data/turkey_raw/weekday_accidents_2019.xlsx\"\n[3] \"data/turkey_raw/weekday_accidents_2020.xlsx\"\n[4] \"data/turkey_raw/weekday_accidents_2021.xlsx\"\n[5] \"data/turkey_raw/weekday_accidents_2022.xlsx\"\n[6] \"data/turkey_raw/weekday_accidents_2023.xlsx\"\n[7] \"data/turkey_raw/weekday_accidents_2024.xlsx\"\n\n\nThe output above shows the dimensions of the US dataset and confirms that all yearly Türkiye datasets were successfully imported into the project."
   },
   {
     "objectID": "project.html#reason-of-choice",
     "href": "project.html#reason-of-choice",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "2.3 Reason of Choice",
-    "text": "2.3 Reason of Choice\nxxxxxx"
+    "text": "2.3 Reason of Choice\nTraffic accidents are one of the most important public safety issues worldwide because they result in injuries, fatalities, and economic losses.\nThe US dataset was selected because it provides highly detailed accident information and supports analyses involving accident severity, weather conditions, and temporal patterns.\nThe Türkiye dataset was selected to establish a country-specific context and compare general accident characteristics between the two countries.\nUsing both datasets together improves the practical relevance of the study while providing richer analytical opportunities."
   },
   {
     "objectID": "project.html#preprocessing",
     "href": "project.html#preprocessing",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "2.4 Preprocessing",
-    "text": "2.4 Preprocessing\nxxxxxx"
+    "text": "2.4 Preprocessing\nBefore starting the analysis, both datasets were prepared in R. Since the US dataset contains millions of records, a sample of 100,000 observations was used during the initial analysis stage to reduce computational burden.\nThe preprocessing steps applied are:\n\nImporting datasets into R\nCombining yearly Türkiye files\nSelecting relevant variables\nCreating time-related variables\nHandling missing values\nPreparing datasets for exploratory analysis\n\n\n\nShow code\nturkey_accidents &lt;- map_df(\n  accident_files,\n  read_excel\n)\n\n\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...6`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...7`\n\n\nShow code\nturkey_weekday &lt;- map_df(\n  weekday_files,\n  read_excel\n)\n\n\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...3`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...4`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`\n\n\nShow code\nus_accidents_clean &lt;- us_accidents %&gt;%\n  select(\n    Severity,\n    Start_Time,\n    State,\n    City,\n    Weather_Condition,\n    `Temperature(F)`,\n    `Visibility(mi)`\n  ) %&gt;%\n  mutate(\n    Year = year(Start_Time),\n    Month = month(Start_Time),\n    Hour = hour(Start_Time),\n    Weekday = wday(Start_Time, label = TRUE)\n  ) %&gt;%\n  drop_na()\n\ndim(us_accidents_clean)\n\n\n[1] 97419    11\n\n\nShow code\ndim(turkey_accidents)\n\n\n[1] 581   8\n\n\nShow code\ndim(turkey_weekday)\n\n\n[1] 70  6\n\n\nThe outputs above show the dimensions of the processed datasets that will be used in the exploratory and comparative analysis stages."
   },
   {
     "objectID": "project.html#exploratory-data-analysis",
     "href": "project.html#exploratory-data-analysis",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "3.1 Exploratory Data Analysis",
-    "text": "3.1 Exploratory Data Analysis\nxxxxxx"
+    "text": "3.1 Exploratory Data Analysis\nIn this section, the US accident data are explored to understand general accident patterns in terms of time, location, severity, weather conditions, and environmental factors.\n\n3.1.1 Yearly Accident Trend in the US\n\n\nShow code\nus_yearly &lt;- read_csv(\n  \"data/US_Accidents_March23.csv\",\n  col_select = Start_Time,\n  show_col_types = FALSE\n) %&gt;%\n  mutate(\n    Year = year(Start_Time)\n  ) %&gt;%\n  filter(\n    Year &lt; 2023\n  ) %&gt;%\n  count(Year)\n\nggplot(\n  us_yearly,\n  aes(\n    x = Year,\n    y = n\n  )\n) +\ngeom_line(linewidth = 1) +\ngeom_point(size = 3) +\nscale_x_continuous(\n  breaks = unique(us_yearly$Year)\n) +\nlabs(\n  title = \"Yearly Trend of Traffic Accidents in the US (2016–2022)\",\n  x = \"Year\",\n  y = \"Number of Accidents\"\n) +\ntheme_minimal()\n\n\n\n\n\n\n\n\n\nThe graph presents the yearly change in accident frequency across the US dataset. Records from 2023 were excluded because the dataset only contains accident data until March 2023. Including incomplete yearly data could create misleading trends.\n\n\n3.1.1.1 Dataset Coverage by Year in the US\n\n\nShow code\nus_coverage &lt;- read_csv(\n  \"data/US_Accidents_March23.csv\",\n  col_select = c(Start_Time, State, City),\n  show_col_types = FALSE\n) %&gt;%\n  mutate(\n    Year = year(Start_Time)\n  ) %&gt;%\n  filter(\n    Year &lt; 2023\n  ) %&gt;%\n  group_by(Year) %&gt;%\n  summarise(\n    Number_of_States = n_distinct(State),\n    Number_of_Cities = n_distinct(City)\n  )\n\nggplot(\n  us_coverage,\n  aes(\n    x = Year,\n    y = Number_of_Cities\n  )\n) +\ngeom_line(linewidth = 1) +\ngeom_point(size = 3) +\nscale_x_continuous(\n  breaks = unique(us_coverage$Year)\n) +\nlabs(\n  title = \"Number of Cities Covered in the US Dataset by Year\",\n  x = \"Year\",\n  y = \"Number of Cities\"\n) +\ntheme_minimal()\n\n\n\n\n\n\n\n\n\nThe increase in accident records between 2016 and 2022 cannot be explained solely by broader geographic coverage. The number of cities represented in the dataset increased by approximately 50% during this period, whereas the number of accident records increased by nearly four times. Therefore, the increase in accident records appears to be larger than the expansion in geographic coverage alone. This suggests that both dataset expansion and actual changes in accident patterns may contribute to the observed trend.\n\n\n3.1.2 Traffic Accidents by Weekday in the US\n\n\nShow code\nus_weekday &lt;- us_accidents_clean %&gt;%\n  count(Weekday)\n\nggplot(us_weekday, aes(x = Weekday, y = n)) +\n  geom_col() +\n  labs(\n    title = \"Traffic Accidents by Weekday in the US\",\n    x = \"Weekday\",\n    y = \"Number of Accidents\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe graph shows that accident frequencies differ across weekdays. Higher accident frequencies during weekdays may be associated with commuting patterns and increased traffic volume, whereas lower frequencies during weekends may reflect reduced work-related travel activity.\n\n\n3.1.3 Traffic Accidents by Hour of Day in the US\n\n\nShow code\nus_hourly &lt;- us_accidents_clean %&gt;%\n  count(Hour)\n\nggplot(us_hourly, aes(x = Hour, y = n)) +\n  geom_line(linewidth = 1) +\n  geom_point(size = 3) +\n  scale_x_continuous(breaks = 0:23) +\n  labs(\n    title = \"Traffic Accidents by Hour of Day in the US\",\n    x = \"Hour of Day\",\n    y = \"Number of Accidents\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe hourly distribution indicates that accident frequencies are not evenly distributed throughout the day. Peaks during morning and evening hours may be associated with commuting periods when traffic density is typically higher.\n\n\n3.1.4 Top Cities with Highest Accident Frequency in the US\n\n\nShow code\ntop_cities &lt;- us_accidents_clean %&gt;%\n  count(City, sort = TRUE) %&gt;%\n  slice_head(n = 10)\n\nggplot(top_cities, aes(x = reorder(City, n), y = n)) +\n  geom_col() +\n  coord_flip() +\n  labs(\n    title = \"Top 10 Cities with Highest Accident Frequency in the US\",\n    x = \"City\",\n    y = \"Number of Accidents\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe results indicate that accident occurrences are concentrated in specific cities. Larger metropolitan areas with higher population density and traffic volumes are expected to exhibit greater accident frequencies.\n\n\n3.1.5 Accident Severity Distribution in the US\n\n\nShow code\nseverity_distribution &lt;- us_accidents_clean %&gt;%\n  count(Severity)\n\nggplot(severity_distribution, aes(x = factor(Severity), y = n)) +\n  geom_col() +\n  labs(\n    title = \"Accident Severity Distribution in the US\",\n    x = \"Severity Level\",\n    y = \"Number of Accidents\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe severity distribution demonstrates that accident records are concentrated in certain severity levels. Severe accidents occur less frequently, while moderate levels appear more common within the dataset.\n\n\n3.1.6 Accident Severity by Weather Condition in the US\n\n\nShow code\ntop_weather &lt;- us_accidents_clean %&gt;%\n  count(Weather_Condition, sort = TRUE) %&gt;%\n  slice_head(n = 8) %&gt;%\n  pull(Weather_Condition)\n\nweather_severity &lt;- us_accidents_clean %&gt;%\n  filter(Weather_Condition %in% top_weather) %&gt;%\n  count(Weather_Condition, Severity)\n\nggplot(\n  weather_severity,\n  aes(\n    x = reorder(Weather_Condition, n),\n    y = n,\n    fill = factor(Severity)\n  )\n) +\n  geom_col(position = \"dodge\") +\n  coord_flip() +\n  labs(\n    title = \"Accident Severity by Weather Condition in the US\",\n    x = \"Weather Condition\",\n    y = \"Number of Accidents\",\n    fill = \"Severity\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe analysis suggests that weather conditions may influence accident severity. Different weather environments can affect road visibility and driving conditions, potentially leading to variations in accident outcomes.\n\n\n3.1.7 Environmental Factors Associated with Accidents in the US\n\n\nShow code\nenvironmental_factors &lt;- us_accidents %&gt;%\n  summarise(\n    Junction = sum(Junction, na.rm = TRUE),\n    Traffic_Signal = sum(Traffic_Signal, na.rm = TRUE),\n    Crossing = sum(Crossing, na.rm = TRUE),\n    Railway = sum(Railway, na.rm = TRUE),\n    Stop = sum(Stop, na.rm = TRUE),\n    Give_Way = sum(Give_Way, na.rm = TRUE)\n  ) %&gt;%\n  pivot_longer(\n    cols = everything(),\n    names_to = \"Factor\",\n    values_to = \"Count\"\n  )\n\nggplot(environmental_factors, aes(x = reorder(Factor, Count), y = Count)) +\n  geom_col() +\n  coord_flip() +\n  labs(\n    title = \"Environmental Factors Associated with Accidents in the US\",\n    x = \"Environmental Factor\",\n    y = \"Frequency\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe results indicate that accidents are associated with several environmental factors such as intersections, traffic signals, and crossings. These factors may contribute to accident occurrence due to increased traffic interactions and driving complexity."
   },
   {
     "objectID": "project.html#trend-analysis",
     "href": "project.html#trend-analysis",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "3.2 Trend Analysis",
-    "text": "3.2 Trend Analysis\nxxxxxx"
+    "text": "3.2 Trend Analysis\nThis section will compare traffic accident patterns between the US and Türkiye."
   },
   {
     "objectID": "project.html#model-fitting",
     "href": "project.html#model-fitting",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "3.3 Model Fitting",
-    "text": "3.3 Model Fitting\nxxxxxx"
+    "text": "3.3 Model Fitting\nThis section will include a simple model to investigate factors associated with accident severity."
   },
   {
     "objectID": "project.html#results",
     "href": "project.html#results",
-    "title": "Project X",
+    "title": "1 Project Overview and Scope",
     "section": "3.4 Results",
-    "text": "3.4 Results\nxxxxxx"
+    "text": "3.4 Results\nThe results section will summarize the main findings from the exploratory analysis, trend comparison, and model fitting."
   },
   {
     "objectID": "index.html",
@@ -98,7 +98,7 @@
     "href": "assignments/assignment-1.html",
     "title": "Assignment 1",
     "section": "",
-    "text": "1 + 1\n\n[1] 2\n\n\nMy first assignment has two parts.\n\n\nIn the talk “Conversations on Data Science and Industrial Engineering” by Cem Vardar and Erdi Daşdemir, data science is presented as an interdisciplinary field that combines statistics, mathematical modeling, programming, and domain knowledge to extract meaningful insights from data and improve decision-making processes. The discussion highlights the distinction between structured and unstructured data and outlines the steps of data-driven decision-making, including problem definition, data collection, analysis, and selecting the most appropriate alternative. It also compares traditional intuition-based approaches with data-driven methods, emphasizing that data science enables more accurate and faster decisions. Furthermore, the differences between machine learning and deep learning are explained, particularly noting that deep learning can automatically extract features from large datasets. Finally, the talk underlines that data science has wide applications in sectors such as energy, retail, and manufacturing, and when integrated with industrial engineering, it enhances system efficiency, flexibility, and optimization.\n\n\n\n\n\nWhat is the difference between machine learning and deep learning? Explain.\nThe main difference between machine learning and deep learning lies in feature extraction and data requirements. In machine learning, features are typically selected manually by humans, and models can work with smaller datasets. In contrast, deep learning uses neural networks to automatically learn features from data, making it more effective for large and complex datasets. However, deep learning requires more data, higher computational power, and longer training time. In summary, machine learning is suitable for simpler problems with limited data, while deep learning performs better in complex problems involving large-scale data.",
+    "text": "My first assignment has two parts.\n\n\n\n\nIn the talk “Conversations on Data Science and Industrial Engineering” by Cem Vardar and Erdi Daşdemir, data science is presented as an interdisciplinary field that combines statistics, mathematical modeling, programming, and domain knowledge to extract meaningful insights from data and improve decision-making processes. The discussion highlights the distinction between structured and unstructured data and outlines the steps of data-driven decision-making, including problem definition, data collection, analysis, and selecting the most appropriate alternative. It also compares traditional intuition-based approaches with data-driven methods, emphasizing that data science enables more accurate and faster decisions. Furthermore, the differences between machine learning and deep learning are explained, particularly noting that deep learning can automatically extract features from large datasets. Finally, the talk underlines that data science has wide applications in sectors such as energy, retail, and manufacturing, and when integrated with industrial engineering, it enhances system efficiency, flexibility, and optimization.\n\n\n\n\n\n\nWhat is the difference between machine learning and deep learning? Explain.\nThe main difference between machine learning and deep learning lies in feature extraction and data requirements. In machine learning, features are typically selected manually by humans, and models can work with smaller datasets. In contrast, deep learning uses neural networks to automatically learn features from data, making it more effective for large and complex datasets. However, deep learning requires more data, higher computational power, and longer training time. In summary, machine learning is suitable for simpler problems with limited data, while deep learning performs better in complex problems involving large-scale data.\n\n\n\nWhich of the following correctly describes the difference between deep learning and machine learning?\nA) Machine learning works with big data, while deep learning works with small data.\nB) In deep learning, feature extraction is done by humans.\nC) In machine learning, features are generally defined by humans, whereas in deep learning, the model automatically learns the features.\nD) Deep learning does not require computational power and is faster.\nE) Machine learning works only with unstructured data.\n\n\n\n\n\ndata(\"mtcars\")\n\ncompute_stats &lt;- function(x) {\n  list(\n    mean = mean(x),\n    median = median(x),\n    variance = var(x),\n    IQR = IQR(x),\n    minimum = min(x),\n    maximum = max(x)\n  )\n}\n\ncompute_stats(mtcars$mpg)\n\n$mean\n[1] 20.09062\n\n$median\n[1] 19.2\n\n$variance\n[1] 36.3241\n\n$IQR\n[1] 7.375\n\n$minimum\n[1] 10.4\n\n$maximum\n[1] 33.9\n\n\n\nfor (col_name in names(mtcars)) {\n  print(col_name)\n  print(compute_stats(mtcars[[col_name]]))\n}\n\n[1] \"mpg\"\n$mean\n[1] 20.09062\n\n$median\n[1] 19.2\n\n$variance\n[1] 36.3241\n\n$IQR\n[1] 7.375\n\n$minimum\n[1] 10.4\n\n$maximum\n[1] 33.9\n\n[1] \"cyl\"\n$mean\n[1] 6.1875\n\n$median\n[1] 6\n\n$variance\n[1] 3.189516\n\n$IQR\n[1] 4\n\n$minimum\n[1] 4\n\n$maximum\n[1] 8\n\n[1] \"disp\"\n$mean\n[1] 230.7219\n\n$median\n[1] 196.3\n\n$variance\n[1] 15360.8\n\n$IQR\n[1] 205.175\n\n$minimum\n[1] 71.1\n\n$maximum\n[1] 472\n\n[1] \"hp\"\n$mean\n[1] 146.6875\n\n$median\n[1] 123\n\n$variance\n[1] 4700.867\n\n$IQR\n[1] 83.5\n\n$minimum\n[1] 52\n\n$maximum\n[1] 335\n\n[1] \"drat\"\n$mean\n[1] 3.596563\n\n$median\n[1] 3.695\n\n$variance\n[1] 0.2858814\n\n$IQR\n[1] 0.84\n\n$minimum\n[1] 2.76\n\n$maximum\n[1] 4.93\n\n[1] \"wt\"\n$mean\n[1] 3.21725\n\n$median\n[1] 3.325\n\n$variance\n[1] 0.957379\n\n$IQR\n[1] 1.02875\n\n$minimum\n[1] 1.513\n\n$maximum\n[1] 5.424\n\n[1] \"qsec\"\n$mean\n[1] 17.84875\n\n$median\n[1] 17.71\n\n$variance\n[1] 3.193166\n\n$IQR\n[1] 2.0075\n\n$minimum\n[1] 14.5\n\n$maximum\n[1] 22.9\n\n[1] \"vs\"\n$mean\n[1] 0.4375\n\n$median\n[1] 0\n\n$variance\n[1] 0.2540323\n\n$IQR\n[1] 1\n\n$minimum\n[1] 0\n\n$maximum\n[1] 1\n\n[1] \"am\"\n$mean\n[1] 0.40625\n\n$median\n[1] 0\n\n$variance\n[1] 0.2489919\n\n$IQR\n[1] 1\n\n$minimum\n[1] 0\n\n$maximum\n[1] 1\n\n[1] \"gear\"\n$mean\n[1] 3.6875\n\n$median\n[1] 4\n\n$variance\n[1] 0.5443548\n\n$IQR\n[1] 1\n\n$minimum\n[1] 3\n\n$maximum\n[1] 5\n\n[1] \"carb\"\n$mean\n[1] 2.8125\n\n$median\n[1] 2\n\n$variance\n[1] 2.608871\n\n$IQR\n[1] 2\n\n$minimum\n[1] 1\n\n$maximum\n[1] 8\n\n\n\n\n\n\nlibrary(dslabs)\ndata(\"polls_us_election_2016\")\n\ndata_original &lt;- polls_us_election_2016\n\nmy_first &lt;- \"Burcu\"\nmy_birth_year &lt;- 1990\n\nk &lt;- (nchar(my_first) + my_birth_year) %% 15 + 8\nk\n\n[1] 8\n\n\n\nhead(data_original, k)\n\n  state  startdate    enddate\n1  U.S. 2016-11-03 2016-11-06\n2  U.S. 2016-11-01 2016-11-07\n3  U.S. 2016-11-02 2016-11-06\n4  U.S. 2016-11-04 2016-11-07\n5  U.S. 2016-11-03 2016-11-06\n6  U.S. 2016-11-03 2016-11-06\n7  U.S. 2016-11-02 2016-11-06\n8  U.S. 2016-11-03 2016-11-05\n                                                    pollster grade samplesize\n1                                   ABC News/Washington Post    A+       2220\n2                                    Google Consumer Surveys     B      26574\n3                                                      Ipsos    A-       2195\n4                                                     YouGov     B       3677\n5                                           Gravis Marketing    B-      16639\n6 Fox News/Anderson Robbins Research/Shaw & Company Research     A       1295\n7                                    CBS News/New York Times    A-       1426\n8                               NBC News/Wall Street Journal    A-       1282\n  population rawpoll_clinton rawpoll_trump rawpoll_johnson rawpoll_mcmullin\n1         lv           47.00         43.00            4.00               NA\n2         lv           38.03         35.69            5.46               NA\n3         lv           42.00         39.00            6.00               NA\n4         lv           45.00         41.00            5.00               NA\n5         rv           47.00         43.00            3.00               NA\n6         lv           48.00         44.00            3.00               NA\n7         lv           45.00         41.00            5.00               NA\n8         lv           44.00         40.00            6.00               NA\n  adjpoll_clinton adjpoll_trump adjpoll_johnson adjpoll_mcmullin\n1        45.20163      41.72430        4.626221               NA\n2        43.34557      41.21439        5.175792               NA\n3        42.02638      38.81620        6.844734               NA\n4        45.65676      40.92004        6.069454               NA\n5        46.84089      42.33184        3.726098               NA\n6        49.02208      43.95631        3.057876               NA\n7        45.11649      40.92722        4.341786               NA\n8        43.58576      40.77325        5.365788               NA\n\n\n\nsum(is.na(data_original))\n\n[1] 11604\n\n\n\nanyNA(data_original)\n\n[1] TRUE",
     "crumbs": [
       "Assignment 1"
     ]
@@ -142,9 +142,276 @@
     "href": "assignments/assignment-1.html#b",
     "title": "Assignment 1",
     "section": "",
-    "text": "What is the difference between machine learning and deep learning? Explain.\nThe main difference between machine learning and deep learning lies in feature extraction and data requirements. In machine learning, features are typically selected manually by humans, and models can work with smaller datasets. In contrast, deep learning uses neural networks to automatically learn features from data, making it more effective for large and complex datasets. However, deep learning requires more data, higher computational power, and longer training time. In summary, machine learning is suitable for simpler problems with limited data, while deep learning performs better in complex problems involving large-scale data.",
+    "text": "What is the difference between machine learning and deep learning? Explain.\nThe main difference between machine learning and deep learning lies in feature extraction and data requirements. In machine learning, features are typically selected manually by humans, and models can work with smaller datasets. In contrast, deep learning uses neural networks to automatically learn features from data, making it more effective for large and complex datasets. However, deep learning requires more data, higher computational power, and longer training time. In summary, machine learning is suitable for simpler problems with limited data, while deep learning performs better in complex problems involving large-scale data.\n\n\n\nWhich of the following correctly describes the difference between deep learning and machine learning?\nA) Machine learning works with big data, while deep learning works with small data.\nB) In deep learning, feature extraction is done by humans.\nC) In machine learning, features are generally defined by humans, whereas in deep learning, the model automatically learns the features.\nD) Deep learning does not require computational power and is faster.\nE) Machine learning works only with unstructured data.",
     "crumbs": [
       "Assignment 1"
     ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#a",
+    "href": "assignments/assignment-1.html#a",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "In the talk “Conversations on Data Science and Industrial Engineering” by Cem Vardar and Erdi Daşdemir, data science is presented as an interdisciplinary field that combines statistics, mathematical modeling, programming, and domain knowledge to extract meaningful insights from data and improve decision-making processes. The discussion highlights the distinction between structured and unstructured data and outlines the steps of data-driven decision-making, including problem definition, data collection, analysis, and selecting the most appropriate alternative. It also compares traditional intuition-based approaches with data-driven methods, emphasizing that data science enables more accurate and faster decisions. Furthermore, the differences between machine learning and deep learning are explained, particularly noting that deep learning can automatically extract features from large datasets. Finally, the talk underlines that data science has wide applications in sectors such as energy, retail, and manufacturing, and when integrated with industrial engineering, it enhances system efficiency, flexibility, and optimization.",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#c",
+    "href": "assignments/assignment-1.html#c",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "data(\"mtcars\")\n\ncompute_stats &lt;- function(x) {\n  list(\n    mean = mean(x),\n    median = median(x),\n    variance = var(x),\n    IQR = IQR(x),\n    minimum = min(x),\n    maximum = max(x)\n  )\n}\n\ncompute_stats(mtcars$mpg)\n\n$mean\n[1] 20.09062\n\n$median\n[1] 19.2\n\n$variance\n[1] 36.3241\n\n$IQR\n[1] 7.375\n\n$minimum\n[1] 10.4\n\n$maximum\n[1] 33.9\n\n\n\nfor (col_name in names(mtcars)) {\n  print(col_name)\n  print(compute_stats(mtcars[[col_name]]))\n}\n\n[1] \"mpg\"\n$mean\n[1] 20.09062\n\n$median\n[1] 19.2\n\n$variance\n[1] 36.3241\n\n$IQR\n[1] 7.375\n\n$minimum\n[1] 10.4\n\n$maximum\n[1] 33.9\n\n[1] \"cyl\"\n$mean\n[1] 6.1875\n\n$median\n[1] 6\n\n$variance\n[1] 3.189516\n\n$IQR\n[1] 4\n\n$minimum\n[1] 4\n\n$maximum\n[1] 8\n\n[1] \"disp\"\n$mean\n[1] 230.7219\n\n$median\n[1] 196.3\n\n$variance\n[1] 15360.8\n\n$IQR\n[1] 205.175\n\n$minimum\n[1] 71.1\n\n$maximum\n[1] 472\n\n[1] \"hp\"\n$mean\n[1] 146.6875\n\n$median\n[1] 123\n\n$variance\n[1] 4700.867\n\n$IQR\n[1] 83.5\n\n$minimum\n[1] 52\n\n$maximum\n[1] 335\n\n[1] \"drat\"\n$mean\n[1] 3.596563\n\n$median\n[1] 3.695\n\n$variance\n[1] 0.2858814\n\n$IQR\n[1] 0.84\n\n$minimum\n[1] 2.76\n\n$maximum\n[1] 4.93\n\n[1] \"wt\"\n$mean\n[1] 3.21725\n\n$median\n[1] 3.325\n\n$variance\n[1] 0.957379\n\n$IQR\n[1] 1.02875\n\n$minimum\n[1] 1.513\n\n$maximum\n[1] 5.424\n\n[1] \"qsec\"\n$mean\n[1] 17.84875\n\n$median\n[1] 17.71\n\n$variance\n[1] 3.193166\n\n$IQR\n[1] 2.0075\n\n$minimum\n[1] 14.5\n\n$maximum\n[1] 22.9\n\n[1] \"vs\"\n$mean\n[1] 0.4375\n\n$median\n[1] 0\n\n$variance\n[1] 0.2540323\n\n$IQR\n[1] 1\n\n$minimum\n[1] 0\n\n$maximum\n[1] 1\n\n[1] \"am\"\n$mean\n[1] 0.40625\n\n$median\n[1] 0\n\n$variance\n[1] 0.2489919\n\n$IQR\n[1] 1\n\n$minimum\n[1] 0\n\n$maximum\n[1] 1\n\n[1] \"gear\"\n$mean\n[1] 3.6875\n\n$median\n[1] 4\n\n$variance\n[1] 0.5443548\n\n$IQR\n[1] 1\n\n$minimum\n[1] 3\n\n$maximum\n[1] 5\n\n[1] \"carb\"\n$mean\n[1] 2.8125\n\n$median\n[1] 2\n\n$variance\n[1] 2.608871\n\n$IQR\n[1] 2\n\n$minimum\n[1] 1\n\n$maximum\n[1] 8",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#d",
+    "href": "assignments/assignment-1.html#d",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "library(dslabs)\ndata(\"polls_us_election_2016\")\n\ndata_original &lt;- polls_us_election_2016\n\nmy_first &lt;- \"Burcu\"\nmy_birth_year &lt;- 1990\n\nk &lt;- (nchar(my_first) + my_birth_year) %% 15 + 8\nk\n\n[1] 8\n\n\n\nhead(data_original, k)\n\n  state  startdate    enddate\n1  U.S. 2016-11-03 2016-11-06\n2  U.S. 2016-11-01 2016-11-07\n3  U.S. 2016-11-02 2016-11-06\n4  U.S. 2016-11-04 2016-11-07\n5  U.S. 2016-11-03 2016-11-06\n6  U.S. 2016-11-03 2016-11-06\n7  U.S. 2016-11-02 2016-11-06\n8  U.S. 2016-11-03 2016-11-05\n                                                    pollster grade samplesize\n1                                   ABC News/Washington Post    A+       2220\n2                                    Google Consumer Surveys     B      26574\n3                                                      Ipsos    A-       2195\n4                                                     YouGov     B       3677\n5                                           Gravis Marketing    B-      16639\n6 Fox News/Anderson Robbins Research/Shaw & Company Research     A       1295\n7                                    CBS News/New York Times    A-       1426\n8                               NBC News/Wall Street Journal    A-       1282\n  population rawpoll_clinton rawpoll_trump rawpoll_johnson rawpoll_mcmullin\n1         lv           47.00         43.00            4.00               NA\n2         lv           38.03         35.69            5.46               NA\n3         lv           42.00         39.00            6.00               NA\n4         lv           45.00         41.00            5.00               NA\n5         rv           47.00         43.00            3.00               NA\n6         lv           48.00         44.00            3.00               NA\n7         lv           45.00         41.00            5.00               NA\n8         lv           44.00         40.00            6.00               NA\n  adjpoll_clinton adjpoll_trump adjpoll_johnson adjpoll_mcmullin\n1        45.20163      41.72430        4.626221               NA\n2        43.34557      41.21439        5.175792               NA\n3        42.02638      38.81620        6.844734               NA\n4        45.65676      40.92004        6.069454               NA\n5        46.84089      42.33184        3.726098               NA\n6        49.02208      43.95631        3.057876               NA\n7        45.11649      40.92722        4.341786               NA\n8        43.58576      40.77325        5.365788               NA\n\n\n\nsum(is.na(data_original))\n\n[1] 11604\n\n\n\nanyNA(data_original)\n\n[1] TRUE",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#custom-summary-function",
+    "href": "assignments/assignment-1.html#custom-summary-function",
+    "title": "Assignment 1",
+    "section": "Custom summary function",
+    "text": "Custom summary function\ncompute_stats &lt;- function(x) {   list(     mean = mean(x),     median = median(x),     variance = var(x),     IQR = IQR(x),     minimum = min(x),     maximum = max(x)   ) }  compute_stats(mtcars$mpg)",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#applying-the-function-with-a-for-loop",
+    "href": "assignments/assignment-1.html#applying-the-function-with-a-for-loop",
+    "title": "Assignment 1",
+    "section": "Applying the function with a for loop",
+    "text": "Applying the function with a for loop\nfor_results &lt;- list()  for (col_name in names(mtcars)) {   for_results[[col_name]] &lt;- compute_stats(mtcars[[col_name]]) }  for_results",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#applying-the-function-with-sapply",
+    "href": "assignments/assignment-1.html#applying-the-function-with-sapply",
+    "title": "Assignment 1",
+    "section": "Applying the function with sapply",
+    "text": "Applying the function with sapply\nsapply_results &lt;- sapply(mtcars, compute_stats, simplify = FALSE) sapply_results",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#applying-the-function-with-apply",
+    "href": "assignments/assignment-1.html#applying-the-function-with-apply",
+    "title": "Assignment 1",
+    "section": "Applying the function with apply",
+    "text": "Applying the function with apply\napply_results &lt;- apply(mtcars, 2, compute_stats) apply_results",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#define-personal-variables",
+    "href": "assignments/assignment-1.html#define-personal-variables",
+    "title": "Assignment 1",
+    "section": "Define personal variables",
+    "text": "Define personal variables\nmy_first &lt;- \"Burcu\" my_birth_year &lt;- 1999  k &lt;- (nchar(my_first) + my_birth_year) %% 15 + 8  my_first my_birth_year k",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#display-k-rows-from-the-original-dataset",
+    "href": "assignments/assignment-1.html#display-k-rows-from-the-original-dataset",
+    "title": "Assignment 1",
+    "section": "Display k rows from the original dataset",
+    "text": "Display k rows from the original dataset\nif (k %% 2 == 0) {   selected_original &lt;- head(data_original, k) } else {   selected_original &lt;- tail(data_original, k) }  selected_original",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#total-number-of-na-values-in-the-original-dataset",
+    "href": "assignments/assignment-1.html#total-number-of-na-values-in-the-original-dataset",
+    "title": "Assignment 1",
+    "section": "Total number of NA values in the original dataset",
+    "text": "Total number of NA values in the original dataset\ntotal_na_original &lt;- sum(is.na(data_original)) total_na_original",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#number-of-na-values-per-column-sorted-from-largest-to-smallest-top-8",
+    "href": "assignments/assignment-1.html#number-of-na-values-per-column-sorted-from-largest-to-smallest-top-8",
+    "title": "Assignment 1",
+    "section": "Number of NA values per column, sorted from largest to smallest (top 8)",
+    "text": "Number of NA values per column, sorted from largest to smallest (top 8)\nna_per_column &lt;- colSums(is.na(data_original)) na_sorted &lt;- sort(na_per_column, decreasing = TRUE) top_8_na &lt;- head(na_sorted, 8)  top_8_na",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#replace-all-na-values-and-store-as-a-new-object",
+    "href": "assignments/assignment-1.html#replace-all-na-values-and-store-as-a-new-object",
+    "title": "Assignment 1",
+    "section": "Replace all NA values and store as a new object",
+    "text": "Replace all NA values and store as a new object\nnew_data &lt;- data_original  for (col_name in names(new_data)) {   if (is.numeric(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- my_birth_year + k   } else if (is.character(new_data[[col_name]])) {     new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- paste0(my_first, \"_\", k)   } else if (is.factor(new_data[[col_name]])) {     new_data[[col_name]] &lt;- as.character(new_data[[col_name]])     new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- paste0(my_first, \"_\", k)   } }",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#display-k-rows-from-the-new-dataset-using-the-same-rule",
+    "href": "assignments/assignment-1.html#display-k-rows-from-the-new-dataset-using-the-same-rule",
+    "title": "Assignment 1",
+    "section": "Display k rows from the new dataset using the same rule",
+    "text": "Display k rows from the new dataset using the same rule\nif (k %% 2 == 0) {   selected_new &lt;- head(new_data, k) } else {   selected_new &lt;- tail(new_data, k) }  selected_new",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#remaining-total-number-of-na-values-in-the-new-dataset",
+    "href": "assignments/assignment-1.html#remaining-total-number-of-na-values-in-the-new-dataset",
+    "title": "Assignment 1",
+    "section": "Remaining total number of NA values in the new dataset",
+    "text": "Remaining total number of NA values in the new dataset\nsum(is.na(new_data))",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#check-with-anyna",
+    "href": "assignments/assignment-1.html#check-with-anyna",
+    "title": "Assignment 1",
+    "section": "Check with anyNA",
+    "text": "Check with anyNA\nanyNA(new_data)",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#c-statistical-summaries-with-custom-functions",
+    "href": "assignments/assignment-1.html#c-statistical-summaries-with-custom-functions",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "data(\"mtcars\")\n\ncompute_stats &lt;- function(x) {\n  list(\n    mean = mean(x),\n    median = median(x),\n    variance = var(x),\n    IQR = IQR(x),\n    minimum = min(x),\n    maximum = max(x)\n  )\n}\n\ncompute_stats(mtcars$mpg)\n\n$mean\n[1] 20.09062\n\n$median\n[1] 19.2\n\n$variance\n[1] 36.3241\n\n$IQR\n[1] 7.375\n\n$minimum\n[1] 10.4\n\n$maximum\n[1] 33.9\n\n\n\nfor_results &lt;- list()\nfor (col_name in names(mtcars)) {\n  for_results[[col_name]] &lt;- compute_stats(mtcars[[col_name]])\n}\nfor_results\n\n$mpg\n$mpg$mean\n[1] 20.09062\n\n$mpg$median\n[1] 19.2\n\n$mpg$variance\n[1] 36.3241\n\n$mpg$IQR\n[1] 7.375\n\n$mpg$minimum\n[1] 10.4\n\n$mpg$maximum\n[1] 33.9\n\n\n$cyl\n$cyl$mean\n[1] 6.1875\n\n$cyl$median\n[1] 6\n\n$cyl$variance\n[1] 3.189516\n\n$cyl$IQR\n[1] 4\n\n$cyl$minimum\n[1] 4\n\n$cyl$maximum\n[1] 8\n\n\n$disp\n$disp$mean\n[1] 230.7219\n\n$disp$median\n[1] 196.3\n\n$disp$variance\n[1] 15360.8\n\n$disp$IQR\n[1] 205.175\n\n$disp$minimum\n[1] 71.1\n\n$disp$maximum\n[1] 472\n\n\n$hp\n$hp$mean\n[1] 146.6875\n\n$hp$median\n[1] 123\n\n$hp$variance\n[1] 4700.867\n\n$hp$IQR\n[1] 83.5\n\n$hp$minimum\n[1] 52\n\n$hp$maximum\n[1] 335\n\n\n$drat\n$drat$mean\n[1] 3.596563\n\n$drat$median\n[1] 3.695\n\n$drat$variance\n[1] 0.2858814\n\n$drat$IQR\n[1] 0.84\n\n$drat$minimum\n[1] 2.76\n\n$drat$maximum\n[1] 4.93\n\n\n$wt\n$wt$mean\n[1] 3.21725\n\n$wt$median\n[1] 3.325\n\n$wt$variance\n[1] 0.957379\n\n$wt$IQR\n[1] 1.02875\n\n$wt$minimum\n[1] 1.513\n\n$wt$maximum\n[1] 5.424\n\n\n$qsec\n$qsec$mean\n[1] 17.84875\n\n$qsec$median\n[1] 17.71\n\n$qsec$variance\n[1] 3.193166\n\n$qsec$IQR\n[1] 2.0075\n\n$qsec$minimum\n[1] 14.5\n\n$qsec$maximum\n[1] 22.9\n\n\n$vs\n$vs$mean\n[1] 0.4375\n\n$vs$median\n[1] 0\n\n$vs$variance\n[1] 0.2540323\n\n$vs$IQR\n[1] 1\n\n$vs$minimum\n[1] 0\n\n$vs$maximum\n[1] 1\n\n\n$am\n$am$mean\n[1] 0.40625\n\n$am$median\n[1] 0\n\n$am$variance\n[1] 0.2489919\n\n$am$IQR\n[1] 1\n\n$am$minimum\n[1] 0\n\n$am$maximum\n[1] 1\n\n\n$gear\n$gear$mean\n[1] 3.6875\n\n$gear$median\n[1] 4\n\n$gear$variance\n[1] 0.5443548\n\n$gear$IQR\n[1] 1\n\n$gear$minimum\n[1] 3\n\n$gear$maximum\n[1] 5\n\n\n$carb\n$carb$mean\n[1] 2.8125\n\n$carb$median\n[1] 2\n\n$carb$variance\n[1] 2.608871\n\n$carb$IQR\n[1] 2\n\n$carb$minimum\n[1] 1\n\n$carb$maximum\n[1] 8\n\n\n\nsapply_results &lt;- sapply(mtcars, compute_stats, simplify = FALSE)\nsapply_results\n\n$mpg\n$mpg$mean\n[1] 20.09062\n\n$mpg$median\n[1] 19.2\n\n$mpg$variance\n[1] 36.3241\n\n$mpg$IQR\n[1] 7.375\n\n$mpg$minimum\n[1] 10.4\n\n$mpg$maximum\n[1] 33.9\n\n\n$cyl\n$cyl$mean\n[1] 6.1875\n\n$cyl$median\n[1] 6\n\n$cyl$variance\n[1] 3.189516\n\n$cyl$IQR\n[1] 4\n\n$cyl$minimum\n[1] 4\n\n$cyl$maximum\n[1] 8\n\n\n$disp\n$disp$mean\n[1] 230.7219\n\n$disp$median\n[1] 196.3\n\n$disp$variance\n[1] 15360.8\n\n$disp$IQR\n[1] 205.175\n\n$disp$minimum\n[1] 71.1\n\n$disp$maximum\n[1] 472\n\n\n$hp\n$hp$mean\n[1] 146.6875\n\n$hp$median\n[1] 123\n\n$hp$variance\n[1] 4700.867\n\n$hp$IQR\n[1] 83.5\n\n$hp$minimum\n[1] 52\n\n$hp$maximum\n[1] 335\n\n\n$drat\n$drat$mean\n[1] 3.596563\n\n$drat$median\n[1] 3.695\n\n$drat$variance\n[1] 0.2858814\n\n$drat$IQR\n[1] 0.84\n\n$drat$minimum\n[1] 2.76\n\n$drat$maximum\n[1] 4.93\n\n\n$wt\n$wt$mean\n[1] 3.21725\n\n$wt$median\n[1] 3.325\n\n$wt$variance\n[1] 0.957379\n\n$wt$IQR\n[1] 1.02875\n\n$wt$minimum\n[1] 1.513\n\n$wt$maximum\n[1] 5.424\n\n\n$qsec\n$qsec$mean\n[1] 17.84875\n\n$qsec$median\n[1] 17.71\n\n$qsec$variance\n[1] 3.193166\n\n$qsec$IQR\n[1] 2.0075\n\n$qsec$minimum\n[1] 14.5\n\n$qsec$maximum\n[1] 22.9\n\n\n$vs\n$vs$mean\n[1] 0.4375\n\n$vs$median\n[1] 0\n\n$vs$variance\n[1] 0.2540323\n\n$vs$IQR\n[1] 1\n\n$vs$minimum\n[1] 0\n\n$vs$maximum\n[1] 1\n\n\n$am\n$am$mean\n[1] 0.40625\n\n$am$median\n[1] 0\n\n$am$variance\n[1] 0.2489919\n\n$am$IQR\n[1] 1\n\n$am$minimum\n[1] 0\n\n$am$maximum\n[1] 1\n\n\n$gear\n$gear$mean\n[1] 3.6875\n\n$gear$median\n[1] 4\n\n$gear$variance\n[1] 0.5443548\n\n$gear$IQR\n[1] 1\n\n$gear$minimum\n[1] 3\n\n$gear$maximum\n[1] 5\n\n\n$carb\n$carb$mean\n[1] 2.8125\n\n$carb$median\n[1] 2\n\n$carb$variance\n[1] 2.608871\n\n$carb$IQR\n[1] 2\n\n$carb$minimum\n[1] 1\n\n$carb$maximum\n[1] 8\n\n\n\napply_results &lt;- apply(mtcars, 2, compute_stats)\napply_results\n\n$mpg\n$mpg$mean\n[1] 20.09062\n\n$mpg$median\n[1] 19.2\n\n$mpg$variance\n[1] 36.3241\n\n$mpg$IQR\n[1] 7.375\n\n$mpg$minimum\n[1] 10.4\n\n$mpg$maximum\n[1] 33.9\n\n\n$cyl\n$cyl$mean\n[1] 6.1875\n\n$cyl$median\n[1] 6\n\n$cyl$variance\n[1] 3.189516\n\n$cyl$IQR\n[1] 4\n\n$cyl$minimum\n[1] 4\n\n$cyl$maximum\n[1] 8\n\n\n$disp\n$disp$mean\n[1] 230.7219\n\n$disp$median\n[1] 196.3\n\n$disp$variance\n[1] 15360.8\n\n$disp$IQR\n[1] 205.175\n\n$disp$minimum\n[1] 71.1\n\n$disp$maximum\n[1] 472\n\n\n$hp\n$hp$mean\n[1] 146.6875\n\n$hp$median\n[1] 123\n\n$hp$variance\n[1] 4700.867\n\n$hp$IQR\n[1] 83.5\n\n$hp$minimum\n[1] 52\n\n$hp$maximum\n[1] 335\n\n\n$drat\n$drat$mean\n[1] 3.596563\n\n$drat$median\n[1] 3.695\n\n$drat$variance\n[1] 0.2858814\n\n$drat$IQR\n[1] 0.84\n\n$drat$minimum\n[1] 2.76\n\n$drat$maximum\n[1] 4.93\n\n\n$wt\n$wt$mean\n[1] 3.21725\n\n$wt$median\n[1] 3.325\n\n$wt$variance\n[1] 0.957379\n\n$wt$IQR\n[1] 1.02875\n\n$wt$minimum\n[1] 1.513\n\n$wt$maximum\n[1] 5.424\n\n\n$qsec\n$qsec$mean\n[1] 17.84875\n\n$qsec$median\n[1] 17.71\n\n$qsec$variance\n[1] 3.193166\n\n$qsec$IQR\n[1] 2.0075\n\n$qsec$minimum\n[1] 14.5\n\n$qsec$maximum\n[1] 22.9\n\n\n$vs\n$vs$mean\n[1] 0.4375\n\n$vs$median\n[1] 0\n\n$vs$variance\n[1] 0.2540323\n\n$vs$IQR\n[1] 1\n\n$vs$minimum\n[1] 0\n\n$vs$maximum\n[1] 1\n\n\n$am\n$am$mean\n[1] 0.40625\n\n$am$median\n[1] 0\n\n$am$variance\n[1] 0.2489919\n\n$am$IQR\n[1] 1\n\n$am$minimum\n[1] 0\n\n$am$maximum\n[1] 1\n\n\n$gear\n$gear$mean\n[1] 3.6875\n\n$gear$median\n[1] 4\n\n$gear$variance\n[1] 0.5443548\n\n$gear$IQR\n[1] 1\n\n$gear$minimum\n[1] 3\n\n$gear$maximum\n[1] 5\n\n\n$carb\n$carb$mean\n[1] 2.8125\n\n$carb$median\n[1] 2\n\n$carb$variance\n[1] 2.608871\n\n$carb$IQR\n[1] 2\n\n$carb$minimum\n[1] 1\n\n$carb$maximum\n[1] 8",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#d-data-manipulation-tasks",
+    "href": "assignments/assignment-1.html#d-data-manipulation-tasks",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "library(dslabs)\ndata(\"polls_us_election_2016\")\ndata_original &lt;- polls_us_election_2016\n\n\nmy_first &lt;- \"Burcu\"\nmy_birth_year &lt;- 1999\nk &lt;- (nchar(my_first) + my_birth_year) %% 15 + 8\nk\n\n[1] 17\n\n\n\nif (k %% 2 == 0) {\n  selected_original &lt;- head(data_original, k)\n} else {\n  selected_original &lt;- tail(data_original, k)\n}\nselected_original\n\n              state  startdate    enddate                pollster grade\n4192           Ohio 2016-06-08 2016-06-19   Quinnipiac University    A-\n4193       New York 2016-02-28 2016-03-03           Siena College     A\n4194 North Carolina 2016-09-27 2016-10-02   Quinnipiac University    A-\n4195 North Carolina 2016-02-14 2016-02-16               SurveyUSA     A\n4196 North Carolina 2016-05-20 2016-05-22   Public Policy Polling    B+\n4197       Kentucky 2016-09-30 2016-10-13                   Ipsos    A-\n4198        Florida 2016-07-30 2016-08-07   Quinnipiac University    A-\n4199   Pennsylvania 2016-06-08 2016-06-19   Quinnipiac University    A-\n4200           Ohio 2016-06-30 2016-07-11   Quinnipiac University    A-\n4201 North Carolina 2016-03-18 2016-03-20   Public Policy Polling    B+\n4202   South Dakota 2016-10-28 2016-11-02                   Ipsos    A-\n4203     Washington 2016-10-21 2016-11-02                   Ipsos    A-\n4204       Virginia 2016-09-16 2016-09-22                   Ipsos    A-\n4205      Wisconsin 2016-08-04 2016-08-07    Marquette University     A\n4206           Utah 2016-11-01 2016-11-07 Google Consumer Surveys     B\n4207         Oregon 2016-10-21 2016-11-02                   Ipsos    A-\n4208       Michigan 2016-01-23 2016-01-26                EPIC-MRA    A-\n     samplesize population rawpoll_clinton rawpoll_trump rawpoll_johnson\n4192        971         rv           38.00         36.00            8.00\n4193        800         rv           57.00         34.00              NA\n4194        507         lv           46.00         43.00            7.00\n4195       1250         lv           43.00         45.00              NA\n4196        928          v           41.00         43.00            3.00\n4197        336         lv           39.38         53.08              NA\n4198       1056         lv           43.00         43.00            7.00\n4199        950         rv           39.00         36.00            9.00\n4200        955         rv           36.00         37.00            7.00\n4201        843          v           44.00         42.00              NA\n4202        170         lv           28.45         47.20              NA\n4203        538         lv           46.71         38.33              NA\n4204        452         lv           46.54         40.04              NA\n4205        683         lv           47.00         34.00            9.00\n4206        286         lv           21.33         35.05            9.99\n4207        446         lv           46.46         37.41              NA\n4208        600         lv           43.00         41.00              NA\n     rawpoll_mcmullin adjpoll_clinton adjpoll_trump adjpoll_johnson\n4192               NA        42.46502      41.36491        3.791570\n4193               NA        56.98850      38.83402              NA\n4194               NA        47.79437      44.86935        4.022323\n4195               NA        39.90517      44.40152              NA\n4196               NA        43.28262      47.12021       -0.036293\n4197               NA        38.34430      54.36357              NA\n4198               NA        45.19351      46.65680        3.448447\n4199               NA        43.35339      41.19061        4.791570\n4200               NA        40.73937      42.33380        2.936299\n4201               NA        42.13165      43.55006              NA\n4202               NA        26.57791      45.43384              NA\n4203               NA        45.56387      38.22545              NA\n4204               NA        46.47852      40.48017              NA\n4205               NA        48.74781      39.07778        4.705020\n4206               NA        26.65200      40.57738        9.705791\n4207               NA        45.12949      37.10720              NA\n4208               NA        42.14966      42.05508              NA\n     adjpoll_mcmullin\n4192               NA\n4193               NA\n4194               NA\n4195               NA\n4196               NA\n4197               NA\n4198               NA\n4199               NA\n4200               NA\n4201               NA\n4202               NA\n4203               NA\n4204               NA\n4205               NA\n4206               NA\n4207               NA\n4208               NA\n\n\n\ntotal_na_original &lt;- sum(is.na(data_original))\ntotal_na_original\n\n[1] 11604\n\n\n\nna_per_column &lt;- colSums(is.na(data_original))\nhead(sort(na_per_column, decreasing = TRUE), 8)\n\nrawpoll_mcmullin adjpoll_mcmullin  rawpoll_johnson  adjpoll_johnson \n            4178             4178             1409             1409 \n           grade       samplesize            state        startdate \n             429                1                0                0 \n\n\n\nnew_data &lt;- data_original\nfor (col_name in names(new_data)) {\n  if (is.numeric(new_data[[col_name]])) {\n    new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- my_birth_year + k\n  } else {\n    new_data[[col_name]] &lt;- as.character(new_data[[col_name]])\n    new_data[[col_name]][is.na(new_data[[col_name]])] &lt;- paste0(my_first, \"_\", k)\n  }\n}\n\n\nif (k %% 2 == 0) {\n  selected_new &lt;- head(new_data, k)\n} else {\n  selected_new &lt;- tail(new_data, k)\n}\nselected_new\n\n              state  startdate    enddate                pollster grade\n4192           Ohio 2016-06-08 2016-06-19   Quinnipiac University    A-\n4193       New York 2016-02-28 2016-03-03           Siena College     A\n4194 North Carolina 2016-09-27 2016-10-02   Quinnipiac University    A-\n4195 North Carolina 2016-02-14 2016-02-16               SurveyUSA     A\n4196 North Carolina 2016-05-20 2016-05-22   Public Policy Polling    B+\n4197       Kentucky 2016-09-30 2016-10-13                   Ipsos    A-\n4198        Florida 2016-07-30 2016-08-07   Quinnipiac University    A-\n4199   Pennsylvania 2016-06-08 2016-06-19   Quinnipiac University    A-\n4200           Ohio 2016-06-30 2016-07-11   Quinnipiac University    A-\n4201 North Carolina 2016-03-18 2016-03-20   Public Policy Polling    B+\n4202   South Dakota 2016-10-28 2016-11-02                   Ipsos    A-\n4203     Washington 2016-10-21 2016-11-02                   Ipsos    A-\n4204       Virginia 2016-09-16 2016-09-22                   Ipsos    A-\n4205      Wisconsin 2016-08-04 2016-08-07    Marquette University     A\n4206           Utah 2016-11-01 2016-11-07 Google Consumer Surveys     B\n4207         Oregon 2016-10-21 2016-11-02                   Ipsos    A-\n4208       Michigan 2016-01-23 2016-01-26                EPIC-MRA    A-\n     samplesize population rawpoll_clinton rawpoll_trump rawpoll_johnson\n4192        971         rv           38.00         36.00            8.00\n4193        800         rv           57.00         34.00         2016.00\n4194        507         lv           46.00         43.00            7.00\n4195       1250         lv           43.00         45.00         2016.00\n4196        928          v           41.00         43.00            3.00\n4197        336         lv           39.38         53.08         2016.00\n4198       1056         lv           43.00         43.00            7.00\n4199        950         rv           39.00         36.00            9.00\n4200        955         rv           36.00         37.00            7.00\n4201        843          v           44.00         42.00         2016.00\n4202        170         lv           28.45         47.20         2016.00\n4203        538         lv           46.71         38.33         2016.00\n4204        452         lv           46.54         40.04         2016.00\n4205        683         lv           47.00         34.00            9.00\n4206        286         lv           21.33         35.05            9.99\n4207        446         lv           46.46         37.41         2016.00\n4208        600         lv           43.00         41.00         2016.00\n     rawpoll_mcmullin adjpoll_clinton adjpoll_trump adjpoll_johnson\n4192             2016        42.46502      41.36491        3.791570\n4193             2016        56.98850      38.83402     2016.000000\n4194             2016        47.79437      44.86935        4.022323\n4195             2016        39.90517      44.40152     2016.000000\n4196             2016        43.28262      47.12021       -0.036293\n4197             2016        38.34430      54.36357     2016.000000\n4198             2016        45.19351      46.65680        3.448447\n4199             2016        43.35339      41.19061        4.791570\n4200             2016        40.73937      42.33380        2.936299\n4201             2016        42.13165      43.55006     2016.000000\n4202             2016        26.57791      45.43384     2016.000000\n4203             2016        45.56387      38.22545     2016.000000\n4204             2016        46.47852      40.48017     2016.000000\n4205             2016        48.74781      39.07778        4.705020\n4206             2016        26.65200      40.57738        9.705791\n4207             2016        45.12949      37.10720     2016.000000\n4208             2016        42.14966      42.05508     2016.000000\n     adjpoll_mcmullin\n4192             2016\n4193             2016\n4194             2016\n4195             2016\n4196             2016\n4197             2016\n4198             2016\n4199             2016\n4200             2016\n4201             2016\n4202             2016\n4203             2016\n4204             2016\n4205             2016\n4206             2016\n4207             2016\n4208             2016\n\n\n\nsum(is.na(new_data))\n\n[1] 0\n\nanyNA(new_data)\n\n[1] FALSE",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#test",
+    "href": "assignments/assignment-1.html#test",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "x &lt;- 5\nx\n\n[1] 5",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "assignments/assignment-1.html#c-1",
+    "href": "assignments/assignment-1.html#c-1",
+    "title": "Assignment 1",
+    "section": "",
+    "text": "data(\"mtcars\")\n\ncompute_stats &lt;- function(x) {\n  list(\n    mean = mean(x),\n    median = median(x),\n    variance = var(x),\n    IQR = IQR(x),\n    minimum = min(x),\n    maximum = max(x)\n  )\n}\n\ncompute_stats(mtcars$mpg)\n\n$mean\n[1] 20.09062\n\n$median\n[1] 19.2\n\n$variance\n[1] 36.3241\n\n$IQR\n[1] 7.375\n\n$minimum\n[1] 10.4\n\n$maximum\n[1] 33.9\n\n\n\nfor (col_name in names(mtcars)) {\n  print(col_name)\n  print(compute_stats(mtcars[[col_name]]))\n}\n\n[1] \"mpg\"\n$mean\n[1] 20.09062\n\n$median\n[1] 19.2\n\n$variance\n[1] 36.3241\n\n$IQR\n[1] 7.375\n\n$minimum\n[1] 10.4\n\n$maximum\n[1] 33.9\n\n[1] \"cyl\"\n$mean\n[1] 6.1875\n\n$median\n[1] 6\n\n$variance\n[1] 3.189516\n\n$IQR\n[1] 4\n\n$minimum\n[1] 4\n\n$maximum\n[1] 8\n\n[1] \"disp\"\n$mean\n[1] 230.7219\n\n$median\n[1] 196.3\n\n$variance\n[1] 15360.8\n\n$IQR\n[1] 205.175\n\n$minimum\n[1] 71.1\n\n$maximum\n[1] 472\n\n[1] \"hp\"\n$mean\n[1] 146.6875\n\n$median\n[1] 123\n\n$variance\n[1] 4700.867\n\n$IQR\n[1] 83.5\n\n$minimum\n[1] 52\n\n$maximum\n[1] 335\n\n[1] \"drat\"\n$mean\n[1] 3.596563\n\n$median\n[1] 3.695\n\n$variance\n[1] 0.2858814\n\n$IQR\n[1] 0.84\n\n$minimum\n[1] 2.76\n\n$maximum\n[1] 4.93\n\n[1] \"wt\"\n$mean\n[1] 3.21725\n\n$median\n[1] 3.325\n\n$variance\n[1] 0.957379\n\n$IQR\n[1] 1.02875\n\n$minimum\n[1] 1.513\n\n$maximum\n[1] 5.424\n\n[1] \"qsec\"\n$mean\n[1] 17.84875\n\n$median\n[1] 17.71\n\n$variance\n[1] 3.193166\n\n$IQR\n[1] 2.0075\n\n$minimum\n[1] 14.5\n\n$maximum\n[1] 22.9\n\n[1] \"vs\"\n$mean\n[1] 0.4375\n\n$median\n[1] 0\n\n$variance\n[1] 0.2540323\n\n$IQR\n[1] 1\n\n$minimum\n[1] 0\n\n$maximum\n[1] 1\n\n[1] \"am\"\n$mean\n[1] 0.40625\n\n$median\n[1] 0\n\n$variance\n[1] 0.2489919\n\n$IQR\n[1] 1\n\n$minimum\n[1] 0\n\n$maximum\n[1] 1\n\n[1] \"gear\"\n$mean\n[1] 3.6875\n\n$median\n[1] 4\n\n$variance\n[1] 0.5443548\n\n$IQR\n[1] 1\n\n$minimum\n[1] 3\n\n$maximum\n[1] 5\n\n[1] \"carb\"\n$mean\n[1] 2.8125\n\n$median\n[1] 2\n\n$variance\n[1] 2.608871\n\n$IQR\n[1] 2\n\n$minimum\n[1] 1\n\n$maximum\n[1] 8",
+    "crumbs": [
+      "Assignment 1"
+    ]
+  },
+  {
+    "objectID": "project.html#background",
+    "href": "project.html#background",
+    "title": "1 Project Overview and Scope",
+    "section": "1.1 Background",
+    "text": "1.1 Background\nTraffic accidents are one of the major public safety problems worldwide and lead to significant human and economic losses every year. Understanding accident patterns and identifying factors associated with traffic accidents can help improve traffic safety and support better decision-making. Comparing accident data from different countries may also provide useful insights into similarities and differences in traffic behaviors and risk factors."
+  },
+  {
+    "objectID": "project.html#problem-statement",
+    "href": "project.html#problem-statement",
+    "title": "1 Project Overview and Scope",
+    "section": "1.2 Problem Statement",
+    "text": "1.2 Problem Statement\nTraffic accidents are influenced by many factors such as weather conditions, time of day, road conditions, and traffic density. However, the relationships among these factors are often difficult to understand without data analysis. This project aims to investigate traffic accident patterns and examine the factors associated with accident severity."
+  },
+  {
+    "objectID": "project.html#objectives",
+    "href": "project.html#objectives",
+    "title": "1 Project Overview and Scope",
+    "section": "1.3 Objectives",
+    "text": "1.3 Objectives\nThe objectives of this project are:\n\nTo analyze traffic accident patterns using a large-scale traffic accident dataset from the United States\nTo compare accident trends between the United States and Türkiye\nTo identify temporal and environmental factors associated with traffic accidents\nTo investigate factors affecting accident severity\nTo provide data-driven insights for traffic safety and decision-making"
+  },
+  {
+    "objectID": "project.html#research-questions",
+    "href": "project.html#research-questions",
+    "title": "1 Project Overview and Scope",
+    "section": "1.4 Research Questions",
+    "text": "1.4 Research Questions\nThis project aims to answer the following questions:\n\nHow do traffic accident patterns change over time?\nWhich environmental and temporal factors are associated with accidents?\nWhat factors affect accident severity?\nAre there similarities between traffic accident trends between the United States and Türkiye?"
+  },
+  {
+    "objectID": "project.html#scope-of-the-study",
+    "href": "project.html#scope-of-the-study",
+    "title": "1 Project Overview and Scope",
+    "section": "1.5 Scope of the Study",
+    "text": "1.5 Scope of the Study\nThis study uses publicly available traffic accident datasets from the United States and Türkiye. The US accident dataset will be used for detailed exploratory analysis, while traffic statistics from Türkiye will be used to establish comparisons and identify similarities and differences in traffic accident patterns."
+  },
+  {
+    "objectID": "project.html#preprocessing-1",
+    "href": "project.html#preprocessing-1",
+    "title": "Traffic Accident Patterns: A Comparative Analysis of US and Türkiye Traffic Data",
+    "section": "2.4 Preprocessing",
+    "text": "2.4 Preprocessing\nBefore the analysis, both datasets were imported into R and prepared for analysis. The preprocessing stage included reading the US accident sample, importing yearly Türkiye Excel files, combining them, selecting relevant variables, handling missing values, and creating time-based variables.\n\n\nShow code\nlibrary(tidyverse)\nlibrary(readxl)\nlibrary(lubridate)\nlibrary(purrr)\n\n# Read sample from US dataset\nus_accidents &lt;- read_csv(\n  \"data/US_Accidents_March23.csv\",\n  n_max = 100000,\n  show_col_types = FALSE\n)\n\n# Find Türkiye accident files\naccident_files &lt;- list.files(\n  \"data/turkey_raw\",\n  pattern = \"^accidents_.*\\\\.xlsx$\",\n  full.names = TRUE\n)\n\nweekday_files &lt;- list.files(\n  \"data/turkey_raw\",\n  pattern = \"^weekday_accidents_.*\\\\.xlsx$\",\n  full.names = TRUE\n)\n\n# Combine Türkiye Excel files\nturkey_accidents &lt;- map_df(accident_files, read_excel)\n\n\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...6`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...7`\n\n\nShow code\nturkey_weekday &lt;- map_df(weekday_files, read_excel)\n\n\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\nNew names:\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...3`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...4`\n• `Ölü Sayısı` -&gt; `Ölü Sayısı...5`\n\n\nShow code\n# Prepare US data\nus_accidents_clean &lt;- us_accidents %&gt;%\n  select(\n    Severity,\n    Start_Time,\n    State,\n    City,\n    Weather_Condition,\n    `Temperature(F)`,\n    `Visibility(mi)`\n  ) %&gt;%\n  mutate(\n    Year = year(Start_Time),\n    Month = month(Start_Time),\n    Hour = hour(Start_Time),\n    Weekday = wday(Start_Time, label = TRUE)\n  ) %&gt;%\n  drop_na()\n\n# Save processed datasets\nsave(\n  us_accidents_clean,\n  turkey_accidents,\n  turkey_weekday,\n  file = \"data/traffic_accidents_clean.RData\"\n)\n\ndim(us_accidents_clean)\n\n\n[1] 97419    11\n\n\nShow code\ndim(turkey_accidents)\n\n\n[1] 581   8\n\n\nShow code\ndim(turkey_weekday)\n\n\n[1] 70  6\n\n\nAfter preprocessing, the cleaned datasets will be used for exploratory analysis, visualization, and comparative analyses between the United States and Türkiye."
+  },
+  {
+    "objectID": "project.html#section",
+    "href": "project.html#section",
+    "title": "1 Project Overview and Scope",
+    "section": "2.1 …",
+    "text": "2.1 …"
+  },
+  {
+    "objectID": "project.html#section-1",
+    "href": "project.html#section-1",
+    "title": "1 Project Overview and Scope",
+    "section": "2.2 …",
+    "text": "2.2 …"
+  },
+  {
+    "objectID": "project.html#section-2",
+    "href": "project.html#section-2",
+    "title": "1 Project Overview and Scope",
+    "section": "2.3 …",
+    "text": "2.3 …"
+  },
+  {
+    "objectID": "project.html#section-3",
+    "href": "project.html#section-3",
+    "title": "1 Project Overview and Scope",
+    "section": "2.4 …",
+    "text": "2.4 …"
+  },
+  {
+    "objectID": "project.html#exploratory-data-analysis-1",
+    "href": "project.html#exploratory-data-analysis-1",
+    "title": "1 Project Overview and Scope",
+    "section": "3.1 Exploratory Data Analysis",
+    "text": "3.1 Exploratory Data Analysis\nxxxxxx"
   }
 ]
